@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components/macro'
 
 
-const HeaderLogin = (props) => {
+const Header = (props) => {
     return (
         <StyledHeaderLogin>
             <LoginTitle>
@@ -12,7 +12,7 @@ const HeaderLogin = (props) => {
     )
 }
 
-export default HeaderLogin
+export default Header
 //
 
 const StyledHeaderLogin = styled.div`

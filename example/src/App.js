@@ -5,10 +5,13 @@ import 'libar/dist/index.css'
 
 const App = () => {
 
-  const handleCLickSend = (email, login) => {
-    debugger
+  const handleCLickLogin = (email, password) => {
+    console.log(email + ' ' + password)
   }
-  return <BaseFormLogin onClick={handleCLickSend} />
+  const handleClickCreate = (email, password, login, phone) => {
+    console.log(email + ' ' + password + ' ' + login + ' ' + phone )
+  }
+  return <BaseFormLogin onClickLogin={handleCLickLogin} onClickCreate={handleClickCreate} />
 }
 
 export default App

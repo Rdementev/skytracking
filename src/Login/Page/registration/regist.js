@@ -1,33 +1,40 @@
 import React from 'react'
-import styled from 'styled-components/macro'
+import styled from "styled-components/macro";
 import Header from "../../Feature/header";
-import Footer from "../../Feature/footer";
 import Body from "../../Feature/body";
+import Footer from "../../Feature/footer";
 import SubFooter from "../../Feature/subFooter";
 
-
-const Auth = (props) => {
-  const {email, password, setEmail, setPassword, onClickLogin, registration, setRegistration} = props
+const Regist = (props) => {
+  const {email, login, password, phone, setEmail, setLogin, setPassword, setPhone, registration, onClickCreate} = props
   return (
     <Container>
       <Block>
         <Header title={'AR document manager'}/>
         <Body email={email}
-              registration={registration}
+              login={login}
+              password={password}
+              phone={phone}
               setEmail={setEmail}
+              setLogin={setLogin}
               setPassword={setPassword}
-              password={password}/>
-        <Footer onClickLogin={onClickLogin}
+              setPhone={setPhone}
+              registration={registration}/>
+
+        <Footer email={email}
+                login={login}
+                phone={phone}
                 registration={registration}
-                email={email}
+                onClickCreate={onClickCreate}
                 password={password}/>
-        <SubFooter onClick={setRegistration}/>
+
+
       </Block>
     </Container>
   )
 }
 
-export default Auth
+export default Regist
 //
 const Container = styled.div`
     width: 100vw;
@@ -40,7 +47,7 @@ const Block = styled.div`
     flex-direction: column;
     justify-content: space-between;
     width: 600px;
-    height: 400px;
+    min-height: 400px;
     border: 1px solid #E9E9EA;
     border-radius: 10px;
     position: absolute;
@@ -50,6 +57,3 @@ const Block = styled.div`
     box-shadow: 0 14px 34px rgba(0, 0, 0, 0.2);
     background-color: #fff;
 `;
-
-
-

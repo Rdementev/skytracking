@@ -2,11 +2,13 @@ import React from 'react'
 import Auth from "../authorization/auth";
 
 const Autohorization = (props) => {
-    debugger
     return <Auth  password={props.password}
                   setEmail={props.setEmail}
-                  onClick={props.onClick}
+                  onClickLogin={props.onClickLogin}
+                  onClickCreate={props.onClickCreate}
                   setPassword={props.setPassword}
+                  registration={props.registration}
+                  setRegistration={props.setRegistration}
                   email={props.email}/>
 }
 
