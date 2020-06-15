@@ -1,5 +1,4 @@
-import React, {useEffect} from 'react'
-import {connect} from "react-redux";
+import React from 'react'
 import styled from 'styled-components/macro'
 import HeaderLogin from "../../Feature/header";
 import FooterLogin from "../../Feature/footer";
@@ -7,7 +6,7 @@ import BodyLogin from "../../Feature/bodyLogin";
 
 
 const Auth = (props) => {
-    const { email, password, setEmail, setPassword, setSend} = props
+    const { email, password, setEmail, setPassword, onClick} = props
     return (
         <Container>
         <Block>
@@ -16,13 +15,15 @@ const Auth = (props) => {
                        setEmail={setEmail}
                        setPassword={setPassword}
                        password={password}/>
-            <FooterLogin setSend={setSend}/>
+            <FooterLogin onClick={onClick}
+                         email={email}
+                         password={password}/>
         </Block>
         </Container>
     )
 }
 
-export default connect()(Auth)
+export default Auth
 //
 const Container = styled.div`
     width: 100vw;

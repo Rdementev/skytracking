@@ -1,25 +1,25 @@
-import React, {useEffect} from 'react'
-import {connect} from "react-redux";
+import React from 'react'
 import styled from 'styled-components/macro'
 import Button from "../../Components/buttons";
 
 
 const FooterLogin = (props) => {
-    const {setSend} = props
+    const {onClick, email, password} = props
     const handleClick = () => {
-        setSend(true)
+      debugger
+      onClick(email, password)
     }
 
     return (
         <StyledFooterLogin>
-            <Button onCLick={handleClick}>
+            <Button onClick={handleClick}>
                 Войти
             </Button>
         </StyledFooterLogin>
     )
 }
 
-export default connect()(FooterLogin)
+export default FooterLogin
 //
 
 const StyledFooterLogin = styled.div`

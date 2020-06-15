@@ -1,12 +1,10 @@
 import React from 'react'
 import PageLogin from './Login'
-import {Provider} from "react-redux";
-import store from "./Login/Core/store";
 
-export const ExampleComponent = () => {
+
+export const BaseFormLogin = (props) => {
   return (
-    <Provider store={store}>
-      <PageLogin/>
-    </Provider>
+      <PageLogin onClick={props.onClick}/>
+
   )
 }

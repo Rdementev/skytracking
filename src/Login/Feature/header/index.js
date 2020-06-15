@@ -1,5 +1,4 @@
-import React, {useEffect} from 'react'
-import {connect} from "react-redux";
+import React from 'react'
 import styled from 'styled-components/macro'
 
 
@@ -13,7 +12,7 @@ const HeaderLogin = (props) => {
     )
 }
 
-export default connect()(HeaderLogin)
+export default HeaderLogin
 //
 
 const StyledHeaderLogin = styled.div`

@@ -1,10 +1,14 @@
 import React from 'react'
 
-import { ExampleComponent } from 'libar'
+import { BaseFormLogin } from 'libar'
 import 'libar/dist/index.css'
 
 const App = () => {
-  return <ExampleComponent text="Create React Library Example 😄" />
+
+  const handleCLickSend = (email, login) => {
+    debugger
+  }
+  return <BaseFormLogin onClick={handleCLickSend} />
 }
 
 export default App
