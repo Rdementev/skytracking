@@ -34,8 +34,8 @@ const Block = styled.div`
     padding: 20px;
     flex-direction: column;
     justify-content: space-between;
-    width: 50vw;
-    height: 50vh;
+    width: 600px;
+    height: 400px;
     border: 1px solid #E9E9EA;
     border-radius: 10px;
     position: absolute;
