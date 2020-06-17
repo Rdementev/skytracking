@@ -9,18 +9,11 @@ import {
   StyledFooterLogin,
   StyledHeader,
   StyledSection,
-  Text
+  Text,
 } from "../../Core/style/styled";
 
-const Registration = (props) => {
-  const {onClick , email,
-    setEmail,
-    password,
-    setPassword,
-    phone,
-    setPhone,} = props
-
-
+const Forget = (props) => {
+  const { onClick, email, setEmail } = props
   return (
     <Container>
       <Row>
@@ -34,18 +27,10 @@ const Registration = (props) => {
             <Text>E-mail</Text>
             <Input value={email} onChange={(e) => {setEmail(e.target.value)}} type={'text'}/>
           </SectionBlock>
-          <SectionBlock>
-            <Text>Пароль</Text>
-            <Input value={password} onChange={(e) => {setPassword(e.target.value)}} type={'text'}/>
-          </SectionBlock>
-          <SectionBlock>
-            <Text>Телефон</Text>
-            <Input value={phone} onChange={(e) => {setPhone(e.target.value)}} type={'text'}/>
-          </SectionBlock>
         </StyledSection>
         <StyledFooterLogin>
-          <Button onClick={(e) => {onClick(email, password, phone)}}>
-            Войти
+          <Button onClick={(e) => {onClick(email)}}>
+            Отправить
           </Button>
         </StyledFooterLogin>
       </Row>
@@ -53,4 +38,5 @@ const Registration = (props) => {
   )
 }
 
-export default Registration
+export default Forget
+//

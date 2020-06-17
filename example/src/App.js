@@ -8,10 +8,16 @@ const App = () => {
   const handleCLickLogin = (email, password) => {
     console.log(email + ' ' + password)
   }
-  const handleClickCreate = (email, password, login, phone) => {
-    console.log(email + ' ' + password + ' ' + login + ' ' + phone )
+  const handleClickCreate = (email, password,  phone) => {
+    console.log(email + ' ' + password +  ' ' + phone )
   }
-  return <BaseFormLogin onClickLogin={handleCLickLogin} onClickCreate={handleClickCreate} />
+  const handleClickForget = (email) => {
+    console.log(email)
+  }
+
+  return <BaseFormLogin onClickLogin={handleCLickLogin}
+                        onClickForget={handleClickForget}
+                        onClickCreate={handleClickCreate} />
 }
 
 export default App
