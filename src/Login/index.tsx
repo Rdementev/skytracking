@@ -7,7 +7,8 @@ import Forget from "./Page/forget";
 import {PropsType} from "../index";
 
 
-const PageLogin = (props:PropsType) => {
+const PageLogin = (props: PropsType) => {
+  const {isAuth, isCheckPhone, isCheckEmail} = props
   const [registration, setRegistration] = useState(false)
   const [forget, setForget] = useState(false)
 
@@ -22,20 +23,24 @@ const PageLogin = (props:PropsType) => {
 
 
   const getContent = () => {
-    if(registration){
+    if (registration) {
       return <Registration onClick={props.onClickCreate}
                            email={emailReg}
+                           isCheckPhone={isCheckPhone}
+                           isCheckEmail={isCheckEmail}
                            setEmail={setEmailReg}
                            password={passwordReg}
                            setPassword={setPasswordReg}
                            phone={phoneReg}
                            setPhone={setPhoneReg}/>
-    } else if(forget){
+    } else if (forget) {
       return <Forget email={emailFg}
+                     isCheckEmail={isCheckEmail}
                      onClick={props.onClickForget}
                      setEmail={setEmailFg}/>
     }
     return <Authorization
+      isAuth={isAuth}
       setForget={setForget}
       email={emailAuth}
       setEmail={setEmailAuth}
