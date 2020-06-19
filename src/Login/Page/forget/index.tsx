@@ -1,0 +1,51 @@
+// @ts-ignore
+import React from 'react'
+import Input from "../../Components/input/inputComponent";
+import Button from "../../Components/buttons";
+import {
+  Container,
+  LoginTitle,
+  Row,
+  SectionBlock,
+  StyledFooterLogin,
+  StyledHeader,
+  StyledSection,
+  Text,
+} from "../../Core/style/styled";
+
+type propsType = {
+  email: string
+  isCheckEmail:boolean
+
+  onClick: (email:string) => void
+  setEmail: (string) => void
+}
+
+const Forget = (props: propsType) => {
+  const { onClick, email, setEmail } = props
+  return (
+    <Container>
+      <Row>
+        <StyledHeader>
+          <LoginTitle>
+            AR document manager
+          </LoginTitle>
+        </StyledHeader>
+        <StyledSection>
+          <SectionBlock>
+            <Text>E-mail</Text>
+            <Input value={email} onChange={(e) => {setEmail(e.target.value)}} type={'text'}/>
+          </SectionBlock>
+        </StyledSection>
+        <StyledFooterLogin>
+          <Button onClick={(e) => {onClick(email)}}>
+            Отправить
+          </Button>
+        </StyledFooterLogin>
+      </Row>
+    </Container>
+  )
+}
+
+export default Forget
+//
