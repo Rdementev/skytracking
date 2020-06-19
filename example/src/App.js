@@ -10,6 +10,7 @@ const App = () => {
   }
   const handleClickCreate = (email, password,  phone) => {
     console.log(email + ' ' + password +  ' ' + phone )
+
   }
   const handleClickForget = (email) => {
     console.log(email)
