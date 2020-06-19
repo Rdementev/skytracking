@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { BaseFormLogin } from 'libar'
+import { BaseFormLogin } from '../.'
 import 'libar/dist/index.css'
 
 const App = () => {
