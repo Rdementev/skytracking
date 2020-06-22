@@ -2,16 +2,18 @@ import React, {Fragment, useEffect} from 'react'
 import styled from 'styled-components/macro'
 
 const ModuleBreadCrumb = (props) => {
-  const {bredcrumb, onClick, seporator} = props
+  const {list, onClick, seporator} = props
 
   useEffect(()=>{
     getUrl()
-  },[bredcrumb, seporator, onClick])
+  },[list, seporator, onClick])
+
 
   const getUrl = () => {
     return (
       <Fragment>
-        {bredcrumb.map((item, i)=> {
+        {list.map((item, i)=> {
+          if(i === list.length - 1) return  <LastUrl isLast={true}>{item.title}</LastUrl>
           if(item.link){
             return (
               <Fragment>
@@ -19,7 +21,7 @@ const ModuleBreadCrumb = (props) => {
                 <Seporator>{seporator}</Seporator>
               </Fragment>
             )
-          } return  <LastUrl isLast={true}>{item.title}</LastUrl>
+          }
         })}
       </Fragment>
     )
