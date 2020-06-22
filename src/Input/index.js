@@ -12,7 +12,7 @@ export const ModuleInput = styled.input`
   font-family: ProximaNova-Regular, sans-serif;
   font-size: 100%;
   line-height: 1.15;
-  color: ${props => props.theme && props.theme.input ? transparentize(props.theme.input.color) : transparentize( 1, '#000')};
+  color: ${props => props.theme && props.theme.input ? transparentize(0.5, props.theme.input.color) : transparentize( 1, '#000')};
   text-overflow: ellipsis;
   &:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 30px white inset;
@@ -21,13 +21,13 @@ export const ModuleInput = styled.input`
   ${props => (props.error ? "border: 1px solid #DE4D4D" : null)};
 
   &:hover {
-    border-color: ${props => props.theme && props.theme.input ? transparentize( props.theme.input.borderColor) : transparentize( 1, '#000')};
-    color: ${props => props.theme && props.theme.input ? transparentize( props.theme.input.color) : transparentize( 1, '#000')};
+    border-color: ${props => props.theme && props.theme.input ? transparentize(1, props.theme.input.borderColor) : transparentize( 1, '#000')};
+    color: ${props => props.theme && props.theme.input ? transparentize( 1, props.theme.input.color) : transparentize( 1, '#000')};
   }
 
   &:focus {
-    border-color: ${props => props.theme && props.theme.input ? transparentize( props.theme.input.borderColor) : transparentize( 1, '#000')};
-    color: ${props => props.theme && props.theme.input ? transparentize( props.theme.input.color) : transparentize( 1, '#000')};
+    border-color: ${props => props.theme && props.theme.input ? transparentize(1, props.theme.input.borderColor) : transparentize( 1, '#000')};
+    color: ${props => props.theme && props.theme.input ? transparentize( 1, props.theme.input.color) : transparentize( 1, '#000')};
     outline: none;
     background: ${({ backgroundOnFocus }) => backgroundOnFocus};
   }

@@ -37,11 +37,15 @@ const ModuleBreadCrumb = (props) => {
 
 export default ModuleBreadCrumb
 //
+const defaultContainer = {
+
+}
+
 const Container = styled.div`
-   padding: 13px 20px 13px 13px;
-    font-size: 10px;
+    padding: ${({padding}) => padding ? padding : '13px 20px 13px 13px'} ;
+    font-size: ${({fontSize}) => fontSize ? fontSize : '10px'} ;
     display: flex;
-    color: #454573;
+    color:  #454573;
     text-transform: uppercase;
     border: 1px solid #EFF1F4;
     background-color: #fff;
@@ -50,12 +54,7 @@ const Container = styled.div`
 const Seporator = styled.div`
     padding: 7px 3px;
 `;
-const Name = styled.div`
-    display: flex;
-    color: #2A2A52;
-    font-weight: bold;
-    padding: 7px;
-`;
+
 const Link = styled.div`
     display: flex;
     padding: 7px;
