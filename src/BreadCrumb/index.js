@@ -37,9 +37,6 @@ const ModuleBreadCrumb = (props) => {
 
 export default ModuleBreadCrumb
 //
-const defaultContainer = {
-
-}
 
 const Container = styled.div`
     padding: ${({padding}) => padding ? padding : '13px 20px 13px 13px'} ;
