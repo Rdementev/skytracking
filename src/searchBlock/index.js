@@ -15,12 +15,17 @@ import Icon from './icon'
 
 
 const ModuleSearchBlock = (props) => {
-    const { value, onChange, bold, placeholder, onFocus, fill, icon, styled} = props
+    const { value, onChange, onKeyPress, placeholder, onFocus, fill, icon, styled} = props
    const CustomIcon = icon ? icon : ''
 
 
     const handleChange = (e) => {
         if(onChange) return onChange(e.target.value)
+    }
+    const handleKeyPress = (e) => {
+      if(e.which === 13) {
+        if (onKeyPress) return onKeyPress()
+      }
     }
 
     return (
@@ -28,6 +33,7 @@ const ModuleSearchBlock = (props) => {
           <ModuleInput
             onChange={handleChange}
             styled={styled.input}
+            onKeyPress={handleKeyPress}
             onFocus={onFocus ? onFocus(true) : null}
             placeholder={placeholder}
             value={value}/>

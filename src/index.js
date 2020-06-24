@@ -50,10 +50,10 @@ export const Input = (props) => {
   return <ModuleInput/>
 }
 export const SearchBlock = (props) => {
-  const { value = '', onChange, bold = false, placeholder = 'Поиск', onFocus, fill = '#000', icon = '', styled } = props
+  const { value = '', onChange, bold = false, placeholder = 'Поиск', onFocus, fill = '#000', icon = '', styled, onKeyPress } = props
   return <ModuleSearchBlock value={value}
                             onChange={onChange ? onChange : null}
-                            bold={bold}
+                            onKeyPress={onKeyPress ? onKeyPress : null}
                             styled={styled}
                             placeholder={placeholder}
                             onFocus={onFocus ? onFocus : null}

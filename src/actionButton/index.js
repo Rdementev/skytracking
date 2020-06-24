@@ -21,6 +21,7 @@ const StyledButton = styled.div`
     padding: 2px 2px 2px 12px;
     margin-right: 10px;
     border-radius: 4px;
+    height: 100%;
     white-space: nowrap;
     display: flex;
     align-items: center;

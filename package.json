@@ -1,6 +1,6 @@
 {
   "name": "@rdementev/lib",
-  "version": "2.4.6",
+  "version": "2.5.0",
   "description": "library",
   "author": "Rdementev",
   "license": "MIT",
@@ -27,7 +27,7 @@
     "deploy": "gh-pages -d example/build"
   },
   "peerDependencies": {
-    "react": "^16.0.0"
+    "react": "^16.8.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
