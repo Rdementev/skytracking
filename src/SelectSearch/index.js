@@ -142,7 +142,7 @@ const ButtonSelect = styled.div`
     align-items: center;
     display: flex;
     padding: 12px;
-    color: rgba(255, 255, 255, 0.7);
+    color: #fff;
 `;
 const StyledContainer = styled.div`
     position: relative;
