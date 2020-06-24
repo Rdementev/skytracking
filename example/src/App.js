@@ -1,14 +1,19 @@
 import React, {useState} from 'react'
 
-import {BaseFormLogin, BreadCrumb, SelectSearch, SearchBlock} from 'libar'
+import {BaseFormLogin, BreadCrumb, SelectSearch, SearchBlock, ActionButton} from 'libar'
 import 'libar/dist/index.css'
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import styled from 'styled-components/macro'
+import Cloud from './upload_1'
+import Start from './upload_2'
+import Settings from './upload_3'
+
 const App = (props) => {
   const {history} = props
   const [searchBlockValue, setSearchBlockValue] = useState('')
   const [displayValue, setDisplayValue] = useState('Панели')
+  const [inputValue, setInputValue] = useState('Панели')
 
   const handleClickLink = (link) => {
     history.push(link)
@@ -39,17 +44,18 @@ const App = (props) => {
 
   const styleList = {
     list: {
-      backgroundColor : '#4361B8',
+
     },
     suggestion : {
       background : '#4361B8',
       borderRadius: '0',
+      padding: '5px',
       border: '1px solid #6786DA',
       margin: '0',
-      top: '92%',
+      top: '89%',
       borderBottomRightRadius: '4px',
       borderBottomLeftRadius: '4px',
-      color: '#FFFFFF',
+      color: 'rgba(255,255,255,0.7)',
       maxHeight: '120px',
       overflow: 'scroll',
     },
@@ -59,10 +65,88 @@ const App = (props) => {
     itemGroup : {
 
     },
+    blockInput : {},
+
+
+    input: {
+      borderRadius: '4px',
+      height: '32px',
+
+      backgroundColor: '#4361B8',
+      borderColor: '#6786DA',
+      color: '#fff',
+      "::placeholder" : {
+        color: 'rgba(255,255,255,0.7)'
+      },
+
+      '&:hover': {
+        borderColor: '#6786DA',
+        color: '#fff'
+      },
+      '&:focus': {
+        borderColor: '#6786DA',
+        color: '#fff'
+      }
+    },
+    buttonSelect: {
+      padding: '10px 0 10px 10px',
+    },
+    styledContainer: {
+
+    },
+
+    blockIcon: {
+      height: '32px'
+    },
+    blockIconInput: {
+
+    },
     itemName : {
       fontSize: '10px',
-      padding: '6px 12px'
+      padding: '6px',
+      borderRadius: '4px',
+      transition: 'ease 0.3s',
+      '&:hover':{
+        color: '#fff',
+        background: 'rgba(255,255,255,0.1)'
+      }
     },
+  }
+
+  const styleActionButton = {
+    button : {
+      background: '#2e4c9f',
+      cursor: 'pointer',
+      borderRadius: '4px',
+      border: '1px solid #3857ae',
+      color: '#ffffff'
+    },
+    blockIcon : {
+      backgroundColor: '#516DBE',
+    },
+  }
+
+  const styleSearchBlock = {
+    input : {
+      height: '32px',
+      borderRadius: '4px',
+      backgroundColor: '#2E4C9F',
+      borderColor: '#3857AD',
+      color: '#fff',
+
+      '::placeholder': {
+        color: 'rgba(255,255,255,0.7)'
+      },
+
+      '&:hover' : {
+        borderColor: '#3857AD',
+        color: '#fff',
+      },
+      '&:focus': {
+        borderColor: '#3857AD',
+        color: '#fff'
+      }
+    }
   }
   const templates = {
     'default': 'icon'
@@ -77,25 +161,59 @@ const App = (props) => {
           <div>{selected[0].value}</div>
         </DisplayValue>
       )
+      setInputValue(selected[0].name)
     }
   }
+  const handleClickClear = () => {
+      setDisplayValue('Панели')
+      setInputValue('Панели')
+  }
+  const handleClickCreate = () => {
+      alert('открыть модалку')
+  }
+  const handleClickDone = () => {
+        alert('другое действие')
+  }
+  const handleClickDelete = () => {
+        alert('и еще другое  действие')
+  }
+
+
 
   return (
     <>
       <HeaderClient>
+        <BlockActionButton>
+          <ActionButton styled={styleActionButton}
+                        icon={Cloud}
+                        title={'Сохранить'}
+                        onClick={handleClickCreate}/>
+        </BlockActionButton>
+        <BlockActionButton>
+          <ActionButton styled={styleActionButton}
+                        title={'Выполнить'}
+                        icon={Start}
+                        onClick={handleClickDone}/>
+        </BlockActionButton>
+        <BlockActionButton>
+          <ActionButton styled={styleActionButton}
+                        title={'Настройка'}
+                        icon={Settings}
+                        onClick={handleClickDelete}/>
+        </BlockActionButton>
         <BlockSelectSearch>
-
-
           <SelectSearch list={options}
                         displayValue={displayValue}
+                        onClickClear={handleClickClear}
                         onClick={handleClickItem}
-                        styleList={styleList}
-                        placeholder={'Панели'}
+                        styled={styleList}
+                        placeholder={inputValue}
                         fill={'#fff'}/>
         </BlockSelectSearch>
 
         <BlockSearchBlock>
           <SearchBlock bold={true}
+                       styled={styleSearchBlock}
                        value={searchBlockValue}
                        onChange={setSearchBlockValue}
                        fill={'rgba(255,255,255,0.7)'}/>
@@ -103,16 +221,13 @@ const App = (props) => {
 
 
       </HeaderClient>
+
       <div>
         <BreadCrumb seporator={'/'}
                     list={bredcrumb}
                     onClick={handleClickLink}
         />
       </div>
-
-
-
-
 
     </>
   )
@@ -121,57 +236,21 @@ const App = (props) => {
 export default compose(withRouter)(App)
 //
 const BlockSelectSearch = styled.div`
-  width: 185px;
-  margin-right: 50px;
-  & > div > div > div > input {
-    border-radius: 4px;
-    height: 32px;
-    padding: 12px;
-    background-color: #4361B8;
-    border-color: #6786DA;
-    color: #fff;
-    ::placeholder {
-      color: rgba(255,255,255,0.7);
-    }
-
-    &:hover {
-      border-color: #6786DA;
-      color: #fff;
-    }
-    &:focus {
-      border-color: #6786DA;
-      color: #fff;
-    }
+    width: 185px;
+    margin-right: 10px;
+    margin-left: auto;
 `;
 const BlockSearchBlock = styled.div`
   width: 185px;
-  & > div > input {
-    height: 32px;
-    border-radius: 4px;
-    background-color: #2E4C9F;
-    border-color: #3857AD;
-    color: #fff;
-
-    ::placeholder {
-      color: rgba(255,255,255,0.7);
-    }
-
-    &:hover {
-      border-color: #3857AD;
-      color: #fff;
-    }
-    &:focus {
-      border-color: #3857AD;
-      color: #fff;
-    }
-  }
-
 `;
 const HeaderClient = styled.div`
     padding: 10px 20px;
     background: #284493;
     display: flex;
-    justify-content: center;
+
+`;
+const BlockActionButton = styled.div`
+
 `;
 const DisplayValue = styled.div`
     align-items: center;

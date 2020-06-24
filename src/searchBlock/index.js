@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import styled from 'styled-components/macro'
 import {ModuleInput} from "../Input";
 import Icon from './icon'
@@ -15,27 +15,22 @@ import Icon from './icon'
 
 
 const ModuleSearchBlock = (props) => {
-    const { value, onChange, bold, placeholder, onFocus, fill, icon} = props
+    const { value, onChange, bold, placeholder, onFocus, fill, icon, styled} = props
    const CustomIcon = icon ? icon : ''
 
 
     const handleChange = (e) => {
         if(onChange) return onChange(e.target.value)
     }
-    const actualInput = bold ? <ModuleInput height={'32px'}
-                                            onFocus={onFocus ? onFocus(true) : null}
-                                            onChange={handleChange}
-                                            placeholder={placeholder}
-                                            value={value}/>
 
-                              : <ModuleInput
-                                      onChange={handleChange}
-                                       onFocus={onFocus ? onFocus(true) : null}
-                                       placeholder={placeholder}
-                                       value={value}/>
     return (
         <InputBlock>
-            {actualInput}
+          <ModuleInput
+            onChange={handleChange}
+            styled={styled.input}
+            onFocus={onFocus ? onFocus(true) : null}
+            placeholder={placeholder}
+            value={value}/>
             {!value &&  <ButtonClose fill={fill}>
               {CustomIcon ? <CustomIcon/> : <Icon /> }
             </ButtonClose>

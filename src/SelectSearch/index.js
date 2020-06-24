@@ -1,17 +1,19 @@
 import React, {useEffect, useRef, useState} from 'react'
 import styled from 'styled-components/macro'
 import {ModuleInput} from "../Input";
-import Icon from './SearchIcon.jsx'
+import CloseIcon from './closeIcon.js'
 import {transparentize} from "../utils/transparentize";
+import Done from "./SearchIcon";
 
 const SelectSearch = (props) => {
-  const {list, multi, placeholder, onClick, fill, styleList, displayValue} = props
+  const {list, multi, placeholder, onClick, fill, styled, displayValue, onClickClear} = props
   const [showList, setShowList] = useState(false)
   const [result, setResult] = useState([])
   const [value, setValue] = useState('')
-  const [selected, setSelected] = useState([])
+  const [selected, setSelected] = useState({})
 
   const ListRef = useRef(null)
+  const SearchRef = useRef(null)
 
   useEffect(() => {
     document.addEventListener('click', handleClickOutSide, false)
@@ -19,12 +21,6 @@ const SelectSearch = (props) => {
       document.removeEventListener('click', handleClickOutSide, false)
     }
   })
-
-  useEffect(()=>{
-    setValue('')
-  },[showList])
-
-
   useEffect(() => {
     if (list && list.length > 0) {
       const actual = list.filter(item => {
@@ -37,19 +33,15 @@ const SelectSearch = (props) => {
     }
   }, [value, list])
 
-  useEffect(() => {
-    setResult(list)
-  }, [showList])
 
   const handleClickOutSide = (e) => {
-    const item = ListRef.current
+    const item = SearchRef.current
     if (e.path) {
       if (!e.path.includes(item)) {
         setShowList(false)
       }
     }
   }
-
   const handleClickItem = (item) => {
     setValue(item.name)
     setShowList(false)
@@ -63,23 +55,27 @@ const SelectSearch = (props) => {
       setSelected(item)
     }
   }
-
   const handleClickOpen = () => {
     setShowList(!showList)
   }
+  const handleClickClear = () => {
+    setValue('')
+    setSelected([])
+    onClickClear()
+  }
 
   const getSuggestionsList = () => {
-    if (result.length < 1) return <ItemName styleList={styleList} style={{textAlign: 'center'}}>Данных нет</ItemName>
+   if (result.length < 1) return <ItemName styled={styled} style={{textAlign: 'center'}}>Данных нет</ItemName>
     return result.map(item => {
       if (item.type === 'group') {
         return (
-          <Group styleList={styleList}>
-              <ItemGroup styleList={styleList}>
+          <Group styled={styled}>
+              <ItemGroup styled={styled}>
                 {item.name}
               </ItemGroup>
             {item.items.map(elem => {
               return (
-                <ItemName styleList={styleList}
+                <ItemName styled={styled}
                           isActive={selected.id === elem.id ? true : false}
                           onClick={() => {handleClickItem(elem)}}>
                   {elem.name}
@@ -90,7 +86,7 @@ const SelectSearch = (props) => {
         )
       }
       return (
-        <ItemName styleList={styleList}
+        <ItemName styled={styled}
                   isActive={selected.id === item.id ? true : false}
                   onClick={() => {handleClickItem(item)}}>
           {item.name}
@@ -100,24 +96,37 @@ const SelectSearch = (props) => {
   }
 
   return (
-    <StyledContainer ref={ListRef}>
-        <ButtonSelect >
+    <StyledContainer styled={styled} ref={SearchRef}>
+        <ButtonSelect styled={styled} onClick={(e) => {handleClickOpen()}} >
           {displayValue}
-          <BlockIcon onClick={(e) => {handleClickOpen()}} showList={showList} fill={fill}>
-            <Icon/>
+          <BlockIcon  styled={styled} fill={fill}  >
+            <IconArrow  />
           </BlockIcon>
         </ButtonSelect>
       {showList &&
-      <List>
-        <BlockInput>
+      <List styled={styled}>
+        <BlockInput styled={styled} >
           <ModuleInput placeholder={placeholder}
+                       styled={styled.input}
                        value={value}
                        onChange={(e) => {setValue(e.target.value)}}/>
-          <BlockIcon onClick={(e) => {handleClickOpen()}} showList={showList} fill={fill}>
-            <Icon/>
-          </BlockIcon>
+          { value && onClickClear &&  <BlockIconInput styled={styled}
+                           value={value ? true : false}
+                                     fill={fill}
+                           onClick={(e) => {handleClickClear()}}
+                           first={false}>
+            <IconClose fill={fill}/>
+          </BlockIconInput>}
+          <BlockIconInput styled={styled}
+                          value={value ? true : false}
+                          first={true}
+                          fill={fill}
+                          onClick={(e) => {handleClickOpen()}}
+                          showList={showList}>
+            <IconArrow fill={fill} showList={showList} />
+          </BlockIconInput>
         </BlockInput>
-        <Suggestion styleList={styleList}>
+        <Suggestion ref={ListRef} styled={styled}>
           {getSuggestionsList()}
         </Suggestion>
       </List>
@@ -128,12 +137,25 @@ const SelectSearch = (props) => {
 }
 export default SelectSearch
 //
+const IconArrow = styled(Done)`
+
+
+`;
+const IconClose = styled(CloseIcon)`
+
+      width: 6px;
+      height: 6px;
+
+`;
+
 const BlockInput = styled.div`
     position: relative;
     & > input {
       border-radius: 5px;
     }
+   ${({styled}) => styled && styled.blockInput ? styled.blockInput  : ''}
 `;
+
 const ButtonSelect = styled.div`
     height: 32px;
     border-radius: 4px;
@@ -141,45 +163,67 @@ const ButtonSelect = styled.div`
     border: 1px solid #3857ae;
     align-items: center;
     display: flex;
-    padding: 12px;
     color: #fff;
+    cursor: pointer;
+
+    ${({styled}) => styled && styled.buttonSelect ? styled.buttonSelect  : ''}
 `;
 const StyledContainer = styled.div`
     position: relative;
     width: 100%;
+    ${({styled}) => styled && styled.styledContainer ? styled.styledContainer  : ''}
 `;
 const BlockIcon = styled.div`
     display: flex;
-    position: absolute;
-    top: 50%;
-    right: 0;
+    max-width: 30px;
+    margin-left: auto;
+    width: 100%;
+    height: 100%;
     cursor: pointer;
-    transform: translate(-10px, -50%);
+
+    & > ${IconArrow} {
+      width: 10px;
+      height: 10px;
+    }
+
     & > svg {
       margin: auto;
       transform: ${({showList}) => showList ? 'rotate(180deg)' : 'none'} ;
-      width: 15px;
-      height: 15px;
-      fill: ${({fill}) => fill ? transparentize(0.7, fill) : transparentize(0.7, '#000')};
-      stroke: ${({fill}) => fill ? fill : transparentize(0.7, '#000')};
+
 
     }
     & > svg > path {
-      fill: ${({fill}) => fill ? transparentize(0.7, fill) : transparentize(0.7, '#000')};
+      fill: ${({fill}) => fill ? transparentize(1, fill) : transparentize(0.7, '#000')};
       z-index: 1;
-      stroke: ${({fill}) => fill ? transparentize(0.7, fill) : transparentize(0.7, '#000')};
-
     }
+    ${({styled}) => styled && styled.blockIcon ? styled.blockIcon : ''}
 
-    & > svg:hover > path {
-      fill: ${({fill}) => fill ? fill : transparentize(0.7, '#000')};
-      stroke: ${({fill}) => fill ? fill : transparentize(0.7, '#000')};
+`;
+
+const BlockIconInput = styled(BlockIcon)`
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: ${({first}) => !first ? '14px' : ''} ;
+    height: ${({first}) => !first ? '14px' : '30px'} ;
+    margin-right: ${({first}) => !first ? '9px' : ''} ;
+    border: ${({first}) => !first ? '1px solid #6685d9' : ''};
+    padding: ${({first}) => !first ? '0' : ''};
+    background: ${({first}) => !first ? '#294493' : ''} ;
+    border-radius: ${({first}) => !first ? '50%' : ''};
+    transform: ${({first}) => first ? 'translate(-2px,-50%)' : 'translate(-30px,-50%)'} ;
+    border-left: ${({value, first}) => value && first ? '1px solid #6786DA' : ''}  ;
+    transition: ease 0.3s;
+    &:hover {
+      box-shadow: ${({first}) => !first ? ' 0 4px 6px rgba(0, 0, 0, 0.2)' : ''}
     }
+    ${({styled}) => styled && styled.blockIconInput ? styled.blockIconInput  : ''}
 `;
 const List = styled.div`
     position: absolute;
     top: 0;
     width: 100%;
+    ${({styled}) => styled && styled.list ? styled.list  : ''}
 `;
 const Suggestion = styled.div`
     width: 100%;
@@ -190,17 +234,17 @@ const Suggestion = styled.div`
     z-index: 1;
     background: ${props => props.theme && props.theme.list ? props.theme.list : '#fff'};
     line-height: 13px;
-    ${({styleList}) => styleList && styleList.suggestion ? styleList.suggestion : ''}
+    ${({styled}) => styled && styled.suggestion ? styled.suggestion : ''}
 `;
 const Group = styled.div`
-    ${({styleList}) => styleList && styleList.group ? styleList.group : ''}
+    ${({styled}) => styled && styled.group ? styled.group : ''}
 `;
 const ItemGroup = styled.div`
     padding: 10px;
     font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 0.3em;
-    ${({styleList}) => styleList && styleList.itemGroup ? styleList.itemGroup : ''}
+    ${({styled}) => styled && styled.itemGroup ? styled.itemGroup : ''}
 
 `;
 const ItemName = styled.li`
@@ -209,10 +253,12 @@ const ItemName = styled.li`
     text-overflow: ellipsis;
     padding: 10px 20px 10px 10px;
     line-height: 13px;
-    background-color: ${({isActive}) => isActive ? '#284493' : '#4361B8'};
+    background-color: ${({isActive}) => isActive ? 'rgba(255,255,255,0.1)' : '#4361B8'};
     &:hover{
       background-color: #4361B8;
     }
-    ${({styleList}) => styleList && styleList.itemName ? styleList.itemName : ''}
+    ${({styled}) => styled && styled.itemName ? styled.itemName : ''}
 
 `;
+
+
