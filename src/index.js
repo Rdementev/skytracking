@@ -50,7 +50,8 @@ export const SelectSearch = (props) => {
 }
 
 export const Input = (props) => {
-  return <ModuleInput/>
+  const { styled } = props
+  return <ModuleInput styled={styled}/>
 }
 export const SearchBlock = (props) => {
   const { value = '', onChange, placeholder = 'Поиск', onFocus, onClick,
