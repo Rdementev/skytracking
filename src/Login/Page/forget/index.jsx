@@ -13,15 +13,9 @@ import {
   Text,
 } from "../../Core/style/styled";
 
-type propsType = {
-  email: string
-  isCheckEmail:boolean
 
-  onClick: (email:string) => void
-  setEmail: (string) => void
-}
 
-const Forget = (props: propsType) => {
+const Forget = (props) => {
   const { onClick, email, setEmail } = props
   return (
     <Container>

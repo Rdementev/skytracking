@@ -4,10 +4,10 @@ import Authorization from './Page/authorization'
 import './Core/style/app.css'
 import Registration from "./Page/registration";
 import Forget from "./Page/forget";
-import {PropsType} from "../index";
 
 
-const PageLogin = (props: PropsType) => {
+
+const PageLogin = (props) => {
   const {isAuth, isCheckPhone, isCheckEmail} = props
   const [registration, setRegistration] = useState(false)
   const [forget, setForget] = useState(false)

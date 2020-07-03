@@ -13,20 +13,7 @@ import {
   Text
 } from "../../Core/style/styled";
 
-type propsType = {
-  email: string
-  password: string
-  phone: string
-  isCheckPhone: boolean
-  isCheckEmail: boolean
-
-  onClick: (email:string, password:string, phone:string) => void
-  setEmail: (string) => void
-  setPassword: (string) => void
-  setPhone: (string) => void
-}
-
-const Registration = (props:propsType) => {
+const Registration = (props) => {
   const {onClick , email, setEmail, password, setPassword, phone, setPhone, isCheckPhone, isCheckEmail} = props
 
 

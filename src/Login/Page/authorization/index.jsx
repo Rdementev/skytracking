@@ -15,19 +15,8 @@ import {
   SubFooterBlock,
 } from "../../Core/style/styled";
 
-type propsType = {
-  email: string
-  password: string
-  isAuth:boolean
 
-  onClick: (email:string, password:string) => void
-  setEmail: (string) => void
-  setPassword: (string) => void
-  setRegistration: (boolean) => void
-  setForget: (boolean) => void
-}
-
-const Autohorization = (props:propsType) => {
+const Autohorization = (props) => {
   const {  setForget,  onClick, setRegistration, email, setEmail, password, setPassword } = props
 
 
