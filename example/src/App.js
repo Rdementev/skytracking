@@ -14,6 +14,7 @@ const App = (props) => {
   const [searchBlockValue, setSearchBlockValue] = useState('')
   const [displayValue, setDisplayValue] = useState('Панели')
   const [inputValue, setInputValue] = useState('Панели')
+  const [onFocusInput, setOnFocus] = useState(false)
 
   const handleClickLink = (link) => {
     history.push(link)
@@ -34,14 +35,12 @@ const App = (props) => {
     },
 
   ]
-
   const options = [
-    {name: 'test 1', value: 'sv', id:1, icon: 'default'},
-    {name: 'test 2', value: 'en', id:2, icon: 'default'},
-    {name: 'test 3', value: 'en', id:3, icon: 'default'},
+    {name: 'test 1', value: 'sv', id:1, },
+    {name: 'test 2', value: 'en', id:2, icon: ''},
+    {name: 'test 3', value: 'en', id:3, icon: ''},
     {name: 'test 4', value: 'en', id:4, icon: 'default'},
   ];
-
   const styleList = {
     list: {
 
@@ -71,7 +70,6 @@ const App = (props) => {
     input: {
       borderRadius: '4px',
       height: '32px',
-
       backgroundColor: '#4361B8',
       borderColor: '#6786DA',
       color: '#fff',
@@ -112,7 +110,6 @@ const App = (props) => {
       }
     },
   }
-
   const styleActionButton = {
     button : {
       background: '#2e4c9f',
@@ -125,7 +122,6 @@ const App = (props) => {
       backgroundColor: '#516DBE',
     },
   }
-
   const styleSearchBlock = {
     input : {
       height: '32px',
@@ -147,9 +143,6 @@ const App = (props) => {
         color: '#fff'
       }
     }
-  }
-  const templates = {
-    'default': 'icon'
   }
 
   const handleClickItem = (selected, multi) => {
@@ -178,6 +171,9 @@ const App = (props) => {
         alert('и еще другое  действие')
   }
 
+  const handleFocus = (value) => {
+    setOnFocus(value)
+  }
 
 
   return (
@@ -202,19 +198,21 @@ const App = (props) => {
                         onClick={handleClickDelete}/>
         </BlockActionButton>
         <BlockSelectSearch>
-          <SelectSearch list={options}
+          <SelectSearch
                         displayValue={displayValue}
+                        value={inputValue}
                         onClickClear={handleClickClear}
                         onClick={handleClickItem}
                         styled={styleList}
-                        placeholder={inputValue}
                         fill={'#fff'}/>
         </BlockSelectSearch>
 
         <BlockSearchBlock>
-          <SearchBlock bold={true}
+          <SearchBlock clear={true}
+                       enter={true}
                        styled={styleSearchBlock}
                        value={searchBlockValue}
+                       onFocus={handleFocus}
                        onChange={setSearchBlockValue}
                        fill={'rgba(255,255,255,0.7)'}/>
         </BlockSearchBlock>

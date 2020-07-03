@@ -6,9 +6,9 @@ import {transparentize} from "../utils/transparentize";
 import Done from "./SearchIcon";
 
 const SelectSearch = (props) => {
-  const {list, multi, placeholder, onClick, fill, styled, displayValue, onClickClear} = props
+  const {list, multi, placeholder, onClick, fill, styled, displayValue, onClickClear, other, search} = props
   const [showList, setShowList] = useState(false)
-  const [result, setResult] = useState([])
+  const [result, setResult] = useState(list)
   const [value, setValue] = useState('')
   const [selected, setSelected] = useState({})
 
@@ -20,9 +20,10 @@ const SelectSearch = (props) => {
     return function () {
       document.removeEventListener('click', handleClickOutSide, false)
     }
-  })
+  },[])
+
   useEffect(() => {
-    if (list && list.length > 0) {
+    if (list && list.length > 0 && search) {
       const actual = list.filter(item => {
         if (item.type === 'group') {
           return item.items.filter(elem => elem.name.toLowerCase().includes(value.toLowerCase()))
@@ -32,7 +33,6 @@ const SelectSearch = (props) => {
       setResult(actual)
     }
   }, [value, list])
-
 
   const handleClickOutSide = (e) => {
     const item = SearchRef.current
@@ -46,7 +46,7 @@ const SelectSearch = (props) => {
     setValue(item.name)
     setShowList(false)
     const select = [item]
-    if (onClick) onClick(select, multi)
+    if (onClick) onClick(select, multi, other)
 
     if(multi){
       const newSelected = [...selected, item]
@@ -63,7 +63,6 @@ const SelectSearch = (props) => {
     setSelected([])
     onClickClear()
   }
-
   const getSuggestionsList = () => {
    if (result.length < 1) return <ItemName styled={styled} style={{textAlign: 'center'}}>Данных нет</ItemName>
     return result.map(item => {
@@ -75,22 +74,32 @@ const SelectSearch = (props) => {
               </ItemGroup>
             {item.items.map(elem => {
               return (
-                <ItemName styled={styled}
-                          isActive={selected.id === elem.id ? true : false}
-                          onClick={() => {handleClickItem(elem)}}>
+                <ItemBlock styled={styled}
+                           onClick={() => {handleClickItem(elem)}}
+                           isActive={selected.id === elem.id ? true : false}>
+                  {item.icon && <BlockIconItem styled={styled}>
+                    {item.icon}
+                  </BlockIconItem>}
+                <ItemName styled={styled}>
                   {elem.name}
                 </ItemName>
+                </ItemBlock>
               )
             })}
           </Group>
         )
       }
       return (
-        <ItemName styled={styled}
-                  isActive={selected.id === item.id ? true : false}
-                  onClick={() => {handleClickItem(item)}}>
-          {item.name}
-        </ItemName>
+        <ItemBlock styled={styled}
+                   isActive={selected.id === item.id ? true : false}
+                   onClick={() => {handleClickItem(item)}}>
+          {item.icon && <BlockIconItem styled={styled}>
+            {item.icon}
+          </BlockIconItem>}
+          <ItemName styled={styled}>
+            {item.name}
+          </ItemName>
+        </ItemBlock>
       )
     })
   }
@@ -105,18 +114,19 @@ const SelectSearch = (props) => {
         </ButtonSelect>
       {showList &&
       <List styled={styled}>
-        <BlockInput styled={styled} >
+        <BlockInput styled={styled}>
+
           <ModuleInput placeholder={placeholder}
                        styled={styled.input}
                        value={value}
                        onChange={(e) => {setValue(e.target.value)}}/>
-          { value && onClickClear &&  <BlockIconInput styled={styled}
-                           value={value ? true : false}
-                                     fill={fill}
-                           onClick={(e) => {handleClickClear()}}
-                           first={false}>
-            <IconClose fill={fill}/>
-          </BlockIconInput>}
+
+          { value && onClickClear &&
+          <BlockClear onClick={() => {handleClickClear()}} styled={styled ? styled.blockClear : ''}>
+            <BlockIconClear styled={styled ? styled.blockIconClear : ''}>
+              <CloseIcon/>
+            </BlockIconClear>
+          </BlockClear>}
           <BlockIconInput styled={styled}
                           value={value ? true : false}
                           first={true}
@@ -138,11 +148,10 @@ const SelectSearch = (props) => {
 export default SelectSearch
 //
 const IconArrow = styled(Done)`
-
-
+    width: 10px;
+    height: 10px;
 `;
 const IconClose = styled(CloseIcon)`
-
       width: 6px;
       height: 6px;
 
@@ -150,9 +159,6 @@ const IconClose = styled(CloseIcon)`
 
 const BlockInput = styled.div`
     position: relative;
-    & > input {
-      border-radius: 5px;
-    }
    ${({styled}) => styled && styled.blockInput ? styled.blockInput  : ''}
 `;
 
@@ -202,23 +208,57 @@ const BlockIcon = styled.div`
 
 const BlockIconInput = styled(BlockIcon)`
     position: absolute;
-    top: 50%;
+    top: 0;
     right: 0;
-    width: ${({first}) => !first ? '14px' : ''} ;
-    height: ${({first}) => !first ? '14px' : '30px'} ;
-    margin-right: ${({first}) => !first ? '9px' : ''} ;
-    border: ${({first}) => !first ? '1px solid #6685d9' : ''};
-    padding: ${({first}) => !first ? '0' : ''};
-    background: ${({first}) => !first ? '#294493' : ''} ;
-    border-radius: ${({first}) => !first ? '50%' : ''};
-    transform: ${({first}) => first ? 'translate(-2px,-50%)' : 'translate(-30px,-50%)'} ;
-    border-left: ${({value, first}) => value && first ? '1px solid #6786DA' : ''}  ;
+    border-left: ${({value}) => value ? '1px solid #6786DA' : ''}  ;
     transition: ease 0.3s;
-    &:hover {
-      box-shadow: ${({first}) => !first ? ' 0 4px 6px rgba(0, 0, 0, 0.2)' : ''}
-    }
+
     ${({styled}) => styled && styled.blockIconInput ? styled.blockIconInput  : ''}
 `;
+
+const BlockIconItem = styled.div`
+    width: 15px ;
+    height: 15px;
+    display: flex;
+    padding: 0;
+    overflow: hidden;
+    margin-right: 10px;
+    & > * {
+      width: 100%;
+      height: 100%;
+      margin: auto;
+    }
+    ${({styled}) => styled && styled.blockIconItem ? styled.blockIconItem  : ''}
+`;
+const BlockClear = styled.div`
+    position: absolute;
+    top: 1px;
+    right: 29px;
+    width: 30px;
+    bottom: 1px;
+    padding: 9px;
+      ${({styled}) => styled}
+`;
+const BlockIconClear = styled.div`
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background: #ffbcbc;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    cursor: pointer;
+
+    &:hover {
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    }
+    & > svg {
+        margin: auto;
+    }
+  ${({styled}) => styled}
+
+`;
+
+
 const List = styled.div`
     position: absolute;
     top: 0;
@@ -248,16 +288,27 @@ const ItemGroup = styled.div`
 
 `;
 const ItemName = styled.li`
+    cursor: pointer;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    ${({styled}) => styled && styled.itemName ? styled.itemName : ''};
+`;
+
+
+const ItemBlock = styled.div`
     font-size: 12px;
     cursor: pointer;
     text-overflow: ellipsis;
     padding: 10px 20px 10px 10px;
     line-height: 13px;
-    background-color: ${({isActive}) => isActive ? 'rgba(255,255,255,0.1)' : '#4361B8'};
+    display: flex;
+    align-items: center;
+
     &:hover{
       background-color: #4361B8;
     }
-    ${({styled}) => styled && styled.itemName ? styled.itemName : ''}
+    ${({styled}) => styled && styled.itemBlock ? styled.itemBlock : ''};
+    background-color: ${({isActive}) => isActive ? 'rgba(255,255,255,0.1)' : ''};
 
 `;
 

@@ -2,7 +2,7 @@ import React, {Fragment, useEffect} from 'react'
 import styled from 'styled-components/macro'
 
 const ModuleBreadCrumb = (props) => {
-  const {list, onClick, seporator} = props
+  const {list, onClick, seporator, styled} = props
 
   useEffect(()=>{
     getUrl()
@@ -13,12 +13,12 @@ const ModuleBreadCrumb = (props) => {
     return (
       <Fragment>
         {list.map((item, i)=> {
-          if(i === list.length - 1) return  <LastUrl isLast={true}>{item.title}</LastUrl>
+          if(i === list.length - 1) return  <LastUrl styled={styled && styled.lastItem ? styled.lastItem : ''} isLast={true}>{item.title}</LastUrl>
           if(item.link){
             return (
               <Fragment>
-                <Link onClick={(e)=>{onClick(item.link)}}>{item.title}</Link>
-                <Seporator>{seporator}</Seporator>
+                <Link styled={styled && styled.item ? styled.item : ''} onClick={(e)=>{onClick(item.link)}}>{item.title}</Link>
+                <Seporator styled={styled && styled.seporator ? styled.seporator : ''}>{seporator}</Seporator>
               </Fragment>
             )
           }
@@ -28,7 +28,7 @@ const ModuleBreadCrumb = (props) => {
   }
 
   return (
-    <Container>
+    <Container styled={styled && styled.container ? styled.container : ''}>
       {getUrl()}
     </Container>
   )
@@ -47,9 +47,11 @@ const Container = styled.div`
     border: 1px solid #EFF1F4;
     background-color: #fff;
     max-height: 52px;
+    ${({styled}) => styled}
 `;
 const Seporator = styled.div`
     padding: 7px 3px;
+    ${({styled}) => styled}
 `;
 
 const Link = styled.div`
@@ -61,6 +63,7 @@ const Link = styled.div`
       border-radius: 4px;
       transition: ease 0.4s;
     }
+    ${({styled}) => styled}
 `;
 const LastUrl = styled(Link)`
   cursor: ${({isLast}) => isLast ? 'default' : 'pointer'};
@@ -70,4 +73,6 @@ const LastUrl = styled(Link)`
   &:hover {
       background:  ${({isLast}) => isLast ? 'transparent' : '#F5F5F5'} ;
     }
+
+  ${({styled}) => styled}
 `;

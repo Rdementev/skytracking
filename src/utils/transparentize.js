@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const transparentize = (number, string) => {
+export const transparentize = (number = 1, string = '#000') => {
   string = string.replace('#', '');
   let r = parseInt(string.length === 3 ? string.slice(0, 1).repeat(2) : string.slice(0, 2), 16)
   let g = parseInt(string.length === 3 ? string.slice(1, 2).repeat(2) : string.slice(2, 4), 16)

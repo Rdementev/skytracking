@@ -3,12 +3,12 @@ import styled from 'styled-components/macro'
 
 
 const ModuleActionButton = (props) => {
-    const {onClick, title, icon:Icon, styled} = props
+    const {onClick, title, icon:Icon, styled, action} = props
 
     return (
-          <StyledButton styled={styled.button} onClick={()=>{onClick()}} >
+          <StyledButton styled={styled && styled.button} onClick={()=>{onClick(action)}} >
             {title}
-              <BlockIcon styled={styled.blockIcon}>
+              <BlockIcon styled={styled && styled.blockIcon}>
                 {Icon ? <Icon /> : <div>+</div>}
               </BlockIcon>
           </StyledButton>
