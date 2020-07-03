@@ -9,7 +9,7 @@ const ModuleActionButton = (props) => {
           <StyledButton styled={styled && styled.button} onClick={()=>{onClick(action)}} >
             {title}
               <BlockIcon styled={styled && styled.blockIcon}>
-                {Icon ? <Icon /> : <div>+</div>}
+                {Icon ? Icon : <div>+</div>}
               </BlockIcon>
           </StyledButton>
     )
