@@ -17,7 +17,7 @@ import {
 
 
 const Autohorization = (props) => {
-  const {  setForget,  onClick, setRegistration, email, setEmail, password, setPassword } = props
+  const {  setForget,  onClick, setRegistration, email, setEmail, password, setPassword, title} = props
 
 
   return (
@@ -25,7 +25,7 @@ const Autohorization = (props) => {
       <Row>
         <StyledHeader>
           <LoginTitle>
-            AR document manager
+            {title}
           </LoginTitle>
         </StyledHeader>
         <StyledSection>

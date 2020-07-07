@@ -16,13 +16,13 @@ import {
 
 
 const Forget = (props) => {
-  const { onClick, email, setEmail } = props
+  const { onClick, email, setEmail, title } = props
   return (
     <Container>
       <Row>
         <StyledHeader>
           <LoginTitle>
-            AR document manager
+            {title}
           </LoginTitle>
         </StyledHeader>
         <StyledSection>

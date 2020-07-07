@@ -14,7 +14,7 @@ import {
 } from "../../Core/style/styled";
 
 const Registration = (props) => {
-  const {onClick , email, setEmail, password, setPassword, phone, setPhone, isCheckPhone, isCheckEmail} = props
+  const {onClick , email, setEmail, password, setPassword, phone, setPhone, isCheckPhone, isCheckEmail, title } = props
 
 
   return (
@@ -22,7 +22,7 @@ const Registration = (props) => {
       <Row>
         <StyledHeader>
           <LoginTitle>
-            AR document manager
+            {title}
           </LoginTitle>
         </StyledHeader>
         <StyledSection>

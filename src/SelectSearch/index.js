@@ -21,7 +21,6 @@ const SelectSearch = (props) => {
       document.removeEventListener('click', handleClickOutSide, false)
     }
   },[])
-
   useEffect(() => {
     if (list && list.length > 0 && search) {
       const actual = list.filter(item => {
@@ -115,7 +114,6 @@ const SelectSearch = (props) => {
       {showList &&
       <List styled={styled}>
         <BlockInput styled={styled}>
-
           <ModuleInput placeholder={placeholder}
                        styled={styled.input}
                        value={value}
@@ -150,11 +148,6 @@ export default SelectSearch
 const IconArrow = styled(Done)`
     width: 10px;
     height: 10px;
-`;
-const IconClose = styled(CloseIcon)`
-      width: 6px;
-      height: 6px;
-
 `;
 
 const BlockInput = styled.div`

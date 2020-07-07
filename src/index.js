@@ -11,6 +11,7 @@ import ModuleActionButton from "./actionButton";
 
 export const BaseFormLogin = (props ) => {
   const {
+      title = 'title',
       isAuth,
       isCheckPhone,
       isCheckEmail,
@@ -20,6 +21,7 @@ export const BaseFormLogin = (props ) => {
   } = props
   return (
       <PageLogin onClickLogin={onClickLogin}
+                 title={title}
                  isAuth={isAuth}
                  isCheckPhone={isCheckPhone}
                  isCheckEmail={isCheckEmail}

@@ -8,7 +8,7 @@ import Forget from "./Page/forget";
 
 
 const PageLogin = (props) => {
-  const {isAuth, isCheckPhone, isCheckEmail} = props
+  const {isAuth, isCheckPhone, isCheckEmail, title} = props
   const [registration, setRegistration] = useState(false)
   const [forget, setForget] = useState(false)
 
@@ -26,6 +26,7 @@ const PageLogin = (props) => {
     if (registration) {
       return <Registration onClick={props.onClickCreate}
                            email={emailReg}
+                           title={title}
                            isCheckPhone={isCheckPhone}
                            isCheckEmail={isCheckEmail}
                            setEmail={setEmailReg}
@@ -35,12 +36,14 @@ const PageLogin = (props) => {
                            setPhone={setPhoneReg}/>
     } else if (forget) {
       return <Forget email={emailFg}
+                     title={title}
                      isCheckEmail={isCheckEmail}
                      onClick={props.onClickForget}
                      setEmail={setEmailFg}/>
     }
     return <Authorization
       isAuth={isAuth}
+      title={title}
       setForget={setForget}
       email={emailAuth}
       setEmail={setEmailAuth}
