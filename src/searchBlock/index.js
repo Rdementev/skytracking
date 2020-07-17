@@ -17,7 +17,7 @@ import CloseIcon from './closeIcon'
 
 
 const ModuleSearchBlock = (props) => {
-    const { value, onChange, onKeyPress, placeholder, onFocus, onClick, icon: Icon, styled, clear, enter} = props
+    const { value, onChange, onKeyPress, placeholder, onFocus, onClick, icon: Icon, styled, clear, enter, closeIcon} = props
     const handleChange = (e) => {
         if(onChange) return onChange(e.target.value)
     }
@@ -45,9 +45,9 @@ const ModuleSearchBlock = (props) => {
             placeholder={placeholder}
             value={value}/>
           {clear && enter && <BlockClear onClick={() => {handleClick('clear')}} styled={styled ? styled.blockClear : ''}>
-            <BlockIconClear styled={styled ? styled.blockIconClear : ''}>
+            {closeIcon ? {closeIcon} : (<BlockIconClear styled={styled ? styled.blockIconClear : ''}>
               <CloseIcon/>
-            </BlockIconClear>
+            </BlockIconClear>)}
           </BlockClear>}
           {enter && <BlockEnter onClick={()=> {handleClick('enter')} } styled={styled ? styled.blockEnter : ''}>
             <BlockEnterText styled={styled ? styled.blockEnterText : ''}>

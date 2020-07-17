@@ -56,10 +56,11 @@ export const Input = (props) => {
   return <ModuleInput styled={styled}/>
 }
 export const SearchBlock = (props) => {
-  const { value = '', onChange, placeholder = 'Поиск', onFocus, onClick,
+  const { value = '', onChange, placeholder = 'Поиск', onFocus, onClick, closeIcon = false,
     fill = '#000', icon = '', styled, onKeyPress, clear = true, enter = true } = props
   return <ModuleSearchBlock value={value}
                             onChange={onChange ? onChange : null}
+                            closeIcon={closeIcon}
                             onKeyPress={onKeyPress ? onKeyPress : null}
                             styled={styled}
                             clear={clear}
