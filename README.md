@@ -79,6 +79,7 @@ onKeyPress | при нажатие enter ( which 13)
 clear | default = true отображает кнопку отчистики внутри инпута
 enter | default = true отображает кнопку enter внутри инпута
 icon | default = null <Icon/> икнока поиска
+closeIcon | default = null <Icon/> иконка очистки
 
 styled = {
   container: {},
