@@ -213,6 +213,7 @@ const App = (props) => {
                        styled={styleSearchBlock}
                        value={searchBlockValue}
                        onFocus={handleFocus}
+                       closeIcon={<div>123</div>}
                        onChange={setSearchBlockValue}
                        fill={'rgba(255,255,255,0.7)'}/>
         </BlockSearchBlock>

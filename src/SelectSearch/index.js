@@ -21,6 +21,11 @@ const SelectSearch = (props) => {
       document.removeEventListener('click', handleClickOutSide, false)
     }
   },[])
+
+  useEffect(()=>{
+    setResult(list)
+  },[list])
+
   useEffect(() => {
     if (list && list.length > 0 && search) {
       const actual = list.filter(item => {
@@ -106,7 +111,9 @@ const SelectSearch = (props) => {
   return (
     <StyledContainer styled={styled} ref={SearchRef}>
         <ButtonSelect styled={styled} onClick={(e) => {handleClickOpen()}} >
-          {displayValue}
+          <ButtonSpan styled={styled}>
+            {displayValue}
+          </ButtonSpan>
           <BlockIcon  styled={styled} fill={fill}  >
             <IconArrow  />
           </BlockIcon>
@@ -166,6 +173,14 @@ const ButtonSelect = styled.div`
     cursor: pointer;
 
     ${({styled}) => styled && styled.buttonSelect ? styled.buttonSelect  : ''}
+`;
+const ButtonSpan = styled.span`
+    width: 100%;
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow: ellipsis;
+
+    ${({styled}) => styled && styled.buttonSpan ? styled.buttonSpan  : ''}
 `;
 const StyledContainer = styled.div`
     position: relative;

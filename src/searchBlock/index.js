@@ -32,7 +32,7 @@ const ModuleSearchBlock = (props) => {
 
 
     return (
-        <InputBlock styled={styled ? styled.container : ''}>
+        <Container styled={styled ? styled.container : ''}>
           <BlockIconSearch styled={styled ? styled.blockIconSearch : ''}>
             {Icon ? Icon : <IconDefault /> }
           </BlockIconSearch>
@@ -45,7 +45,7 @@ const ModuleSearchBlock = (props) => {
             placeholder={placeholder}
             value={value}/>
           {clear && enter && <BlockClear onClick={() => {handleClick('clear')}} styled={styled ? styled.blockClear : ''}>
-            {closeIcon ? {closeIcon} : (<BlockIconClear styled={styled ? styled.blockIconClear : ''}>
+            {closeIcon ? closeIcon : (<BlockIconClear styled={styled ? styled.blockIconClear : ''}>
               <CloseIcon/>
             </BlockIconClear>)}
           </BlockClear>}
@@ -57,13 +57,13 @@ const ModuleSearchBlock = (props) => {
               <EnterIcon/>
             </BlockEnterIcon>
           </BlockEnter>}
-        </InputBlock>
+        </Container>
     )
 }
 export default ModuleSearchBlock
 //
 
-const InputBlock = styled.div`
+const Container = styled.div`
 position: relative;
   ${({styled}) => styled}
 `;
