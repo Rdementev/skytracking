@@ -11,7 +11,6 @@ const SelectSearch = (props) => {
   const [result, setResult] = useState(list)
   const [value, setValue] = useState('')
   const [selected, setSelected] = useState({})
-
   const ListRef = useRef(null)
   const SearchRef = useRef(null)
 
@@ -67,6 +66,7 @@ const SelectSearch = (props) => {
     setSelected([])
     onClickClear()
   }
+
   const getSuggestionsList = () => {
    if (result.length < 1) return <ItemName styled={styled} style={{textAlign: 'center'}}>Данных нет</ItemName>
     return result.map(item => {
@@ -156,12 +156,10 @@ const IconArrow = styled(Done)`
     width: 10px;
     height: 10px;
 `;
-
 const BlockInput = styled.div`
     position: relative;
    ${({styled}) => styled && styled.blockInput ? styled.blockInput  : ''}
 `;
-
 const ButtonSelect = styled.div`
     height: 32px;
     border-radius: 4px;
@@ -213,7 +211,6 @@ const BlockIcon = styled.div`
     ${({styled}) => styled && styled.blockIcon ? styled.blockIcon : ''}
 
 `;
-
 const BlockIconInput = styled(BlockIcon)`
     position: absolute;
     top: 0;
@@ -223,7 +220,6 @@ const BlockIconInput = styled(BlockIcon)`
 
     ${({styled}) => styled && styled.blockIconInput ? styled.blockIconInput  : ''}
 `;
-
 const BlockIconItem = styled.div`
     width: 15px ;
     height: 15px;
@@ -265,8 +261,6 @@ const BlockIconClear = styled.div`
   ${({styled}) => styled}
 
 `;
-
-
 const List = styled.div`
     position: absolute;
     top: 0;
@@ -275,12 +269,11 @@ const List = styled.div`
 `;
 const Suggestion = styled.div`
     width: 100%;
-    margin-top: 10px;
+    top: 130%;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
     border-radius: 5px;
     position: absolute;
     z-index: 1;
-    background: ${props => props.theme && props.theme.list ? props.theme.list : '#fff'};
     line-height: 13px;
     ${({styled}) => styled && styled.suggestion ? styled.suggestion : ''}
 `;
@@ -301,8 +294,6 @@ const ItemName = styled.li`
     overflow: hidden;
     ${({styled}) => styled && styled.itemName ? styled.itemName : ''};
 `;
-
-
 const ItemBlock = styled.div`
     font-size: 12px;
     cursor: pointer;

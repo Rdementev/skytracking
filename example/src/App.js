@@ -198,8 +198,7 @@ const App = (props) => {
                         onClick={handleClickDelete}/>
         </BlockActionButton>
         <BlockSelectSearch>
-          <SelectSearch
-                        displayValue={displayValue}
+          <SelectSearch displayValue={displayValue}
                         value={inputValue}
                         onClickClear={handleClickClear}
                         onClick={handleClickItem}
@@ -221,13 +220,22 @@ const App = (props) => {
 
       </HeaderClient>
 
-      <div>
+      <Body>
         <BreadCrumb seporator={'/'}
                     list={bredcrumb}
                     onClick={handleClickLink}
         />
-      </div>
-
+      </Body>
+      <Footer>
+        <BlockSelectSearch>
+          <SelectSearch displayValue={displayValue}
+                        value={inputValue}
+                        onClickClear={handleClickClear}
+                        onClick={handleClickItem}
+                        styled={styleList}
+                        fill={'#fff'}/>
+        </BlockSelectSearch>
+      </Footer>
     </>
   )
 }
@@ -238,6 +246,13 @@ const BlockSelectSearch = styled.div`
     width: 185px;
     margin-right: 10px;
     margin-left: auto;
+`;
+const Body = styled.div`
+    flex-grow: 1;
+    height: 100%;
+`;
+const Footer = styled.div`
+    margin-top: auto;
 `;
 const BlockSearchBlock = styled.div`
   width: 185px;
