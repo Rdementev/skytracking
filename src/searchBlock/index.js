@@ -65,6 +65,7 @@ export default ModuleSearchBlock
 
 const Container = styled.div`
 position: relative;
+height: 100%;
   ${({styled}) => styled}
 `;
 const BlockIconClear = styled.div`

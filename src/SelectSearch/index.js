@@ -6,12 +6,11 @@ import {transparentize} from "../utils/transparentize";
 import Done from "./SearchIcon";
 
 const SelectSearch = (props) => {
-  const {list, multi, placeholder, onClick, fill, styled, displayValue, onClickClear, other, search} = props
+  const {list, multi, placeholder, onClick, fill, styled, displayValue, onClickClear, other, search, suggestionButton} = props
   const [showList, setShowList] = useState(false)
   const [result, setResult] = useState(list)
   const [value, setValue] = useState('')
   const [selected, setSelected] = useState({})
-
   const ListRef = useRef(null)
   const SearchRef = useRef(null)
 
@@ -67,7 +66,8 @@ const SelectSearch = (props) => {
     setSelected([])
     onClickClear()
   }
-  const getSuggestionsList = () => {
+
+  const getSuggestionsSoloList = () => {
    if (result.length < 1) return <ItemName styled={styled} style={{textAlign: 'center'}}>Данных нет</ItemName>
     return result.map(item => {
       if (item.type === 'group') {
@@ -87,6 +87,50 @@ const SelectSearch = (props) => {
                 <ItemName styled={styled}>
                   {elem.name}
                 </ItemName>
+                </ItemBlock>
+              )
+            })}
+          </Group>
+        )
+      }
+      return (
+        <ItemBlock styled={styled}
+                   isActive={selected.id === item.id ? true : false}
+                   onClick={() => {handleClickItem(item)}}>
+          {item.icon && <BlockIconItem styled={styled}>
+            {item.icon}
+          </BlockIconItem>}
+          <ItemName styled={styled}>
+            {item.name}
+          </ItemName>
+        </ItemBlock>
+      )
+    })
+  }
+
+  const getSuggestionsMultiList = () => {
+    if (result.length < 1) return <ItemName styled={styled} style={{textAlign: 'center'}}>Данных нет</ItemName>
+    return
+
+
+    result.map(item => {
+      if (item.type === 'group') {
+        return (
+          <Group styled={styled}>
+            <ItemGroup styled={styled}>
+              {item.name}
+            </ItemGroup>
+            {item.items.map(elem => {
+              return (
+                <ItemBlock styled={styled}
+                           onClick={() => {handleClickItem(elem)}}
+                           isActive={selected.id === elem.id ? true : false}>
+                  {item.icon && <BlockIconItem styled={styled}>
+                    {item.icon}
+                  </BlockIconItem>}
+                  <ItemName styled={styled}>
+                    {elem.name}
+                  </ItemName>
                 </ItemBlock>
               )
             })}
@@ -142,7 +186,10 @@ const SelectSearch = (props) => {
           </BlockIconInput>
         </BlockInput>
         <Suggestion ref={ListRef} styled={styled}>
-          {getSuggestionsList()}
+          {multi ? getSuggestionsMultiList : getSuggestionsSoloList()}
+          {multi && <SuggestionButtonContainer>
+            {suggestionButton}
+          </SuggestionButtonContainer>}
         </Suggestion>
       </List>
       }
@@ -156,12 +203,10 @@ const IconArrow = styled(Done)`
     width: 10px;
     height: 10px;
 `;
-
 const BlockInput = styled.div`
     position: relative;
    ${({styled}) => styled && styled.blockInput ? styled.blockInput  : ''}
 `;
-
 const ButtonSelect = styled.div`
     height: 32px;
     border-radius: 4px;
@@ -213,7 +258,6 @@ const BlockIcon = styled.div`
     ${({styled}) => styled && styled.blockIcon ? styled.blockIcon : ''}
 
 `;
-
 const BlockIconInput = styled(BlockIcon)`
     position: absolute;
     top: 0;
@@ -223,7 +267,6 @@ const BlockIconInput = styled(BlockIcon)`
 
     ${({styled}) => styled && styled.blockIconInput ? styled.blockIconInput  : ''}
 `;
-
 const BlockIconItem = styled.div`
     width: 15px ;
     height: 15px;
@@ -245,19 +288,22 @@ const BlockClear = styled.div`
     width: 30px;
     bottom: 1px;
     padding: 9px;
+    display: flex;
+
       ${({styled}) => styled}
 `;
 const BlockIconClear = styled.div`
     display: flex;
+    margin: auto;
     width: 100%;
     height: 100%;
-    background: #ffbcbc;
+    background: #fff;
     border-radius: 50%;
-    border: 1px solid #fff;
     cursor: pointer;
-
+    transition: ease 0.3s;
     &:hover {
       box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      transform: translate(0, -1px);
     }
     & > svg {
         margin: auto;
@@ -265,8 +311,6 @@ const BlockIconClear = styled.div`
   ${({styled}) => styled}
 
 `;
-
-
 const List = styled.div`
     position: absolute;
     top: 0;
@@ -275,14 +319,16 @@ const List = styled.div`
 `;
 const Suggestion = styled.div`
     width: 100%;
-    margin-top: 10px;
+    top: 130%;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
     border-radius: 5px;
     position: absolute;
     z-index: 1;
-    background: ${props => props.theme && props.theme.list ? props.theme.list : '#fff'};
     line-height: 13px;
     ${({styled}) => styled && styled.suggestion ? styled.suggestion : ''}
+`;
+const SuggestionButtonContainer = styled.div`
+    ${({styled}) => styled && styled.SuggestionButtonContainer ? styled.SuggestionButtonContainer : ''}
 `;
 const Group = styled.div`
     ${({styled}) => styled && styled.group ? styled.group : ''}
@@ -301,8 +347,6 @@ const ItemName = styled.li`
     overflow: hidden;
     ${({styled}) => styled && styled.itemName ? styled.itemName : ''};
 `;
-
-
 const ItemBlock = styled.div`
     font-size: 12px;
     cursor: pointer;
