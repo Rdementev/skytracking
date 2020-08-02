@@ -78,11 +78,13 @@ icon | default = null
 onKeyPress | при нажатие enter ( which 13)
 clear | default = true отображает кнопку отчистики внутри инпута
 enter | default = true отображает кнопку enter внутри инпута
-icon | default = null <Icon/> икнока поиска
-closeIcon | default = null <Icon/> иконка очистки
+icon | default = null <Component/> икнока поиска
+closeIcon | default = null <Component/> иконка очистки
+suggestionButton | default = null <Component/> кнопка в списке при мультивыборе
 
 styled = {
   container: {},
+  SuggestionButtonContainer :{} 
   blockIconSearch : {},
   input: {}
   blockClear : {},
