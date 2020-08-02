@@ -1,6 +1,5 @@
 // @ts-ignore
 import React  from 'react'
-import PageLogin from './Login'
 import ModuleBreadCrumb from "./BreadCrumb";
 import ModuleSelectSearch from "./SelectSearch";
 import {ModuleInput} from "./Input";
@@ -9,26 +8,7 @@ import ModuleActionButton from "./actionButton";
 
 
 
-export const BaseFormLogin = (props ) => {
-  const {
-      title = 'title',
-      isAuth,
-      isCheckPhone,
-      isCheckEmail,
-      onClickLogin,
-      onClickForget,
-      onClickCreate,
-  } = props
-  return (
-      <PageLogin onClickLogin={onClickLogin}
-                 title={title}
-                 isAuth={isAuth}
-                 isCheckPhone={isCheckPhone}
-                 isCheckEmail={isCheckEmail}
-                 onClickForget={onClickForget}
-                 onClickCreate={onClickCreate}/>
-  )
-}
+
 
 export const BreadCrumb = (props) => {
   const {list = [{title: 'Main', link:'/'}], seporator = '/', onClick, styled} = props
@@ -38,11 +18,12 @@ export const BreadCrumb = (props) => {
                            onClick={onClick}/>
 }
 export const SelectSearch = (props) => {
-    const { list = [], other = null, search = false, multi = false, placeholder = 'Поиск', onClick, fill = 'rgba(0,0,0,0.7)', styled , displayValue = 'test', onClickClear } = props
+    const { list = [], suggestionButton = false, other = null, search = false, multi = false, placeholder = 'Поиск', onClick, fill = 'rgba(0,0,0,0.7)', styled , displayValue = 'test', onClickClear } = props
   return <ModuleSelectSearch list={list}
                              styled={styled}
                              onClickClear={onClickClear ? onClickClear : null}
                              multi={multi}
+                             suggestionButton={suggestionButton}
                              search={search}
                              other={other}
                              displayValue={displayValue}

@@ -6,7 +6,7 @@ import {transparentize} from "../utils/transparentize";
 import Done from "./SearchIcon";
 
 const SelectSearch = (props) => {
-  const {list, multi, placeholder, onClick, fill, styled, displayValue, onClickClear, other, search} = props
+  const {list, multi, placeholder, onClick, fill, styled, displayValue, onClickClear, other, search, suggestionButton} = props
   const [showList, setShowList] = useState(false)
   const [result, setResult] = useState(list)
   const [value, setValue] = useState('')
@@ -67,7 +67,7 @@ const SelectSearch = (props) => {
     onClickClear()
   }
 
-  const getSuggestionsList = () => {
+  const getSuggestionsSoloList = () => {
    if (result.length < 1) return <ItemName styled={styled} style={{textAlign: 'center'}}>Данных нет</ItemName>
     return result.map(item => {
       if (item.type === 'group') {
@@ -87,6 +87,50 @@ const SelectSearch = (props) => {
                 <ItemName styled={styled}>
                   {elem.name}
                 </ItemName>
+                </ItemBlock>
+              )
+            })}
+          </Group>
+        )
+      }
+      return (
+        <ItemBlock styled={styled}
+                   isActive={selected.id === item.id ? true : false}
+                   onClick={() => {handleClickItem(item)}}>
+          {item.icon && <BlockIconItem styled={styled}>
+            {item.icon}
+          </BlockIconItem>}
+          <ItemName styled={styled}>
+            {item.name}
+          </ItemName>
+        </ItemBlock>
+      )
+    })
+  }
+
+  const getSuggestionsMultiList = () => {
+    if (result.length < 1) return <ItemName styled={styled} style={{textAlign: 'center'}}>Данных нет</ItemName>
+    return
+
+
+    result.map(item => {
+      if (item.type === 'group') {
+        return (
+          <Group styled={styled}>
+            <ItemGroup styled={styled}>
+              {item.name}
+            </ItemGroup>
+            {item.items.map(elem => {
+              return (
+                <ItemBlock styled={styled}
+                           onClick={() => {handleClickItem(elem)}}
+                           isActive={selected.id === elem.id ? true : false}>
+                  {item.icon && <BlockIconItem styled={styled}>
+                    {item.icon}
+                  </BlockIconItem>}
+                  <ItemName styled={styled}>
+                    {elem.name}
+                  </ItemName>
                 </ItemBlock>
               )
             })}
@@ -142,7 +186,10 @@ const SelectSearch = (props) => {
           </BlockIconInput>
         </BlockInput>
         <Suggestion ref={ListRef} styled={styled}>
-          {getSuggestionsList()}
+          {multi ? getSuggestionsMultiList : getSuggestionsSoloList()}
+          {multi && <SuggestionButtonContainer>
+            {suggestionButton}
+          </SuggestionButtonContainer>}
         </Suggestion>
       </List>
       }
@@ -241,19 +288,22 @@ const BlockClear = styled.div`
     width: 30px;
     bottom: 1px;
     padding: 9px;
+    display: flex;
+
       ${({styled}) => styled}
 `;
 const BlockIconClear = styled.div`
     display: flex;
+    margin: auto;
     width: 100%;
     height: 100%;
-    background: #ffbcbc;
+    background: #fff;
     border-radius: 50%;
-    border: 1px solid #fff;
     cursor: pointer;
-
+    transition: ease 0.3s;
     &:hover {
       box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      transform: translate(0, -1px);
     }
     & > svg {
         margin: auto;
@@ -276,6 +326,9 @@ const Suggestion = styled.div`
     z-index: 1;
     line-height: 13px;
     ${({styled}) => styled && styled.suggestion ? styled.suggestion : ''}
+`;
+const SuggestionButtonContainer = styled.div`
+    ${({styled}) => styled && styled.SuggestionButtonContainer ? styled.SuggestionButtonContainer : ''}
 `;
 const Group = styled.div`
     ${({styled}) => styled && styled.group ? styled.group : ''}
