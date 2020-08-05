@@ -5,10 +5,7 @@ import ModuleSelectSearch from "./SelectSearch";
 import {ModuleInput} from "./Input";
 import ModuleSearchBlock from "./searchBlock";
 import ModuleActionButton from "./actionButton";
-
-
-
-
+import ModuleHorizontMenu from "./horizontMenu";
 
 export const BreadCrumb = (props) => {
   const {list = [{title: 'Main', link:'/'}], seporator = '/', onClick, styled} = props
@@ -31,7 +28,6 @@ export const SelectSearch = (props) => {
                              onClick={onClick}
                              placeholder={placeholder}/>
 }
-
 export const Input = (props) => {
   const { styled } = props
   return <ModuleInput styled={styled}/>
@@ -52,7 +48,6 @@ export const SearchBlock = (props) => {
                             fill={fill}
                             icon={icon} />
 }
-
 export const ActionButton = (props) => {
   const { onClick, title = 'Action', icon = false, styled = false, action = '' } = props
   return <ModuleActionButton  onClick={onClick ? onClick : false}
@@ -60,4 +55,12 @@ export const ActionButton = (props) => {
                               action={action}
                               styled={styled ? styled : false }
                               title={title}/>
+}
+
+export const HorizontMenu = (props) => {
+  const {onClick, styled, list, other} = props
+  return <ModuleHorizontMenu  onClick={onClick}
+                              styled={styled}
+                              list={list}
+                              other={other}/>
 }

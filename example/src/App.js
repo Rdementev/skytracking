@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 
-import {BaseFormLogin, BreadCrumb, SelectSearch, SearchBlock, ActionButton} from 'libar'
-import 'libar/dist/index.css'
+import {BreadCrumb, SelectSearch, SearchBlock, ActionButton, HorizontMenu} from 'libar'
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import styled from 'styled-components/macro'
@@ -225,17 +224,13 @@ const App = (props) => {
                     list={bredcrumb}
                     onClick={handleClickLink}
         />
+
+        <div>
+          <HorizontMenu list={[{id:1, title: 'Common', icon:<Cloud/>  },{id:2, title: 'Super', con:<div>Icon1</div>}]}/>
+        </div>
       </Body>
-      <Footer>
-        <BlockSelectSearch>
-          <SelectSearch displayValue={displayValue}
-                        value={inputValue}
-                        onClickClear={handleClickClear}
-                        onClick={handleClickItem}
-                        styled={styleList}
-                        fill={'#fff'}/>
-        </BlockSelectSearch>
-      </Footer>
+
+
     </>
   )
 }
