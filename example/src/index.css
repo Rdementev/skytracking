@@ -1,5 +1,103 @@
-#root{
+.mainContent{
+  z-index: 1000;
+  flex: 1;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+}
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 3px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+  background: rgba(31, 54, 125, 0.16)
+}
+
+::-webkit-scrollbar-thumb:hover{
+  background: #182B65;
+}
+
+body {
+  font: normal 14px 'Open Sans', sans-serif;
+  padding: 0;
+  margin: 0;
+  letter-spacing: 0;
+  cursor: default;
+
+}
+
+#root{
+  min-height: 100vh;
+}
+
+#modal{
+
+}
+
+.MuiTreeItem-root{
+  width: 100% !important;
+}
+
+ul, li{
+  display: block;
+  padding: 0;
+  margin: 0;
+}
+
+div, p, span, button, form, input, a {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  letter-spacing: 0.02em;
+}
+
+p{
+  margin: 0 ;
+}
+
+
+h1, h2, h3, h4, h5, h6{
+  margin: 0;
+}
+
+h1{
+  font-size: 45px;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+h2{
+  font-size: 19px;
+  text-transform: uppercase;
+}
+
+h3{
+  font-size: 17px;
+
+}
+h4{
+  font-size: 16px;
+
+}
+
+h5{
+  font-size: 15px;
+
+}
+
+h6{
+  font-size: 14px;
+}
+
+a{
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
 }
