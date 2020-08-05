@@ -110,3 +110,20 @@ styled = {
   blockIcon : {},
 }
 
+______________________________________________________________________________________________________________________________________
+
+6) HorizontMenu
+
+import {HorizontMenu} from ....
+
+onClick callback при клике на элемент
+list = [{id:1, title: 'Common', icon:<Cloud/>  }] - массив объектов 
+other параметр который вернется при клике на елемент из списка
+
+styled = {
+  BlockItem: {},
+  BlockIcon: {},
+  Title: {},
+  Container: {},
+}
+
