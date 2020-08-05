@@ -6,6 +6,7 @@ import {ModuleInput} from "./Input";
 import ModuleSearchBlock from "./searchBlock";
 import ModuleActionButton from "./actionButton";
 import ModuleHorizontMenu from "./horizontMenu";
+import ModuleMenu from "./menu";
 
 export const BreadCrumb = (props) => {
   const {list = [{title: 'Main', link:'/'}], seporator = '/', onClick, styled} = props
@@ -58,9 +59,18 @@ export const ActionButton = (props) => {
 }
 
 export const HorizontMenu = (props) => {
-  const {onClick, styled, list, other} = props
+  const {onClick, styled = {}, list = [], other = '', activeId} = props
   return <ModuleHorizontMenu  onClick={onClick}
+                              activeId={activeId}
                               styled={styled}
                               list={list}
                               other={other}/>
+}
+export const Menu = (props) => {
+  const {onClick, styled = {}, list = [], other = '', activeId} = props
+  return <ModuleMenu  onClick={onClick}
+                      activeId={activeId}
+                      styled={styled}
+                      list={list}
+                      other={other}/>
 }

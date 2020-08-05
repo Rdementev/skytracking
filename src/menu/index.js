@@ -1,7 +1,8 @@
 import React from "react";
-import styled from 'styled-components/macro'
-import Icon from './icon'
-const HorizontMenu = (props) => {
+
+import styled from "styled-components/macro";
+
+const Menu = (props) => {
   const {onClick, styled, list, other, activeId = 1} = props
 
   const StyleBlockItem = styled && styled.BlockItem
@@ -12,25 +13,9 @@ const HorizontMenu = (props) => {
   const getContent = (list) => {
     return list.map(item => {
       const active = item.id === activeId
-      if(item.order === 1){
-        return (
-          <BlockItemMain active={active} onClick={()=>{onClick &&  onClick(item,other)}} styled={StyleBlockItem}>
-            {item.icon
-              ? <BlockIconMain styled={StyleBlockIcon}>{item.icon}</BlockIconMain>
-              : <BlockIconDefaultMain active={active}><Icon /></BlockIconDefaultMain>
-            }
-            <BlockTitleMain styled={StyleBlockTitle}>
-              {item.title}
-            </BlockTitleMain>
-          </BlockItemMain>
-        )
-      }
       return (
         <BlockItem active={active} onClick={()=>{onClick &&  onClick(item,other)}} styled={StyleBlockItem}>
-          {item.icon
-            ? <BlockIcon styled={StyleBlockIcon}>{item.icon}</BlockIcon>
-            : <BlockIconDefault active={active}><Icon /></BlockIconDefault>
-          }
+          {item.icon && <BlockIcon styled={StyleBlockIcon}>{item.icon}</BlockIcon>}
           <BlockTitle styled={StyleBlockTitle}>
             {item.title}
           </BlockTitle>
@@ -47,25 +32,17 @@ const HorizontMenu = (props) => {
   )
 }
 
-export default HorizontMenu
+export default Menu
 //
 const Container = styled.div`
   display: flex;
+  flex-direction: column;
   padding: 10px;
   ${({styled}) => styled}
 `;
 
-const BlockIconDefault = styled.div`
-    transition: ease 0.3s;
-    margin-right: 10px;
-    & > svg > path {
-      transition: ease 0.3s;
-      fill: ${({active}) => active ? '#fff' : ''};
-    }
 
-`;
 const BlockTitle = styled.div`
-
   ${({styled}) => styled}
 `;
 const BlockIcon = styled.div`
@@ -91,19 +68,11 @@ const BlockItem = styled.div`
   border: 1px solid transparent;
   transition: ease 0.3s;
   cursor: ${({active}) => active ? 'default' : ' pointer'};
-  background: ${({active}) => active ? '#2E828B' : '#F4F4F4'};
-  box-shadow: ${({active}) => active ? '0 6px 19px  rgba(46,130,139, 0.24)' : ''};
-  color: ${({active}) => active ? '#fff' : '#676F83'};
+  background: ${({active}) => active ? '#EEEEEE' : 'transparent'};
   border-radius: 4px;
-  &:not(:last-child){
-    margin-right: 5px;
-  }
   &:hover {
-    color:  ${({active}) => active ? '' : '#2E828B'};
-    border-color: ${({active}) => active ? '' :' #2E828B'};
+    background: ${({active}) => active ? '' :' #eeeeee66'};
   }
-  &:hover > ${BlockIconDefault} > svg > path {
-   fill: #2E828B;
-  }
+
   ${({styled}) => styled}
 `;

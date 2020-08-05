@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {BreadCrumb, SelectSearch, SearchBlock, ActionButton, HorizontMenu} from 'libar'
+import {BreadCrumb, SelectSearch, SearchBlock, ActionButton, HorizontMenu, Menu} from 'libar'
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import styled from 'styled-components/macro'
@@ -227,6 +227,9 @@ const App = (props) => {
 
         <div>
           <HorizontMenu list={[{id:1, title: 'Common', icon:<Cloud/>  },{id:2, title: 'Super', con:<div>Icon1</div>}]}/>
+        </div>
+        <div style={{width: '300px'}}>
+          <Menu list={[{id:1, title: 'Common', icon:<Cloud/> , order:'1',},{id:2, order:'0', title: 'Super', con:<div>Icon1</div>}]}/>
         </div>
       </Body>
 
