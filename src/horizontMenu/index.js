@@ -2,7 +2,7 @@ import React from "react";
 import styled from 'styled-components/macro'
 import Icon from './icon'
 const HorizontMenu = (props) => {
-  const {onClick, styled, list, other, activeId = 1} = props
+  const {onClick, styled, list, other, activeId = 2} = props
 
   const StyleBlockItem = styled && styled.BlockItem
   const StyleBlockIcon = styled && styled.BlockIcon
@@ -103,7 +103,7 @@ const BlockItem = styled.div`
     border-color: ${({active}) => active ? '' :' #2E828B'};
   }
   &:hover > ${BlockIconDefault} > svg > path {
-   fill: #2E828B;
+   fill: ${({active}) => active ? '#fff' : '#2E828B'};
   }
   ${({styled}) => styled}
 `;
