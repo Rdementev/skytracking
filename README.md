@@ -5,7 +5,8 @@ import {BreadCrumb} from ....
 
 list = [{
   title: 'example',
-  link: '/example'
+  link: '/example',
+  icon: <Component/>
 }]
 
 seporator = '/'
@@ -17,6 +18,10 @@ styled = {
   item: {},
   seporator: {},
   lastItem:{},
+  lastUrlBlock: {},
+  lastUrlIcon: {},
+  linkBlock: {},
+  linkBlockIcon: {},
 }
 
 ______________________________________________________________________________________________________________________________________
