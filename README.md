@@ -94,17 +94,10 @@ styled = {
 
 ______________________________________________________________________________________________________________________________________
 
+5) MainNavigationBar 
 
-5) ActionButton 
+import {MainNavigationBar} from ....
 
-import {ActionButton} from ....
+контейнер subheader
 
-onClick | callback вызывается при клике на кнопку возвращает action
-action | default = ''
-title | default = 'Action' значение для отображения в кнопке
-icon | default = false <Icon/>
-styled = {
-  button: {},
-  blockIcon : {},
-}
 
