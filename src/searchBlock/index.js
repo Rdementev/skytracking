@@ -3,7 +3,7 @@ import styled from 'styled-components/macro'
 import {ModuleInput} from "../Input";
 import IconDefault from './icon'
 import EnterIcon from './enterIcon'
-import CloseIcon from './closeIcon'
+import CloseBtn from './closeBtn'
 
 /**
  * value - string
@@ -33,7 +33,7 @@ const ModuleSearchBlock = (props) => {
 
     return (
         <Container styled={styled ? styled.container : ''}>
-          <BlockIconSearch styled={styled ? styled.blockIconSearch : ''}>
+          <BlockIconSearch styled={styled ? styled.blockIconSearch : '' } value={value}>
             {Icon ? Icon : <IconDefault /> }
           </BlockIconSearch>
           <ModuleInput
@@ -44,12 +44,12 @@ const ModuleSearchBlock = (props) => {
             onFocus={onFocus ? () => {onFocus(true)} : null}
             placeholder={placeholder}
             value={value}/>
-          {clear && enter && <BlockClear onClick={() => {handleClick('clear')}} styled={styled ? styled.blockClear : ''}>
-            {closeIcon ? closeIcon : (<BlockIconClear styled={styled ? styled.blockIconClear : ''}>
-              <CloseIcon/>
-            </BlockIconClear>)}
+          {clear && enter &&  value && <BlockClear onClick={() => {handleClick('clear')}} styled={styled ? styled.blockClear : ''}>
+            <BlockIconClear styled={styled ? styled.blockIconClear : ''}>
+              {closeIcon ? closeIcon : <CloseBtn/>}
+            </BlockIconClear>
           </BlockClear>}
-          {enter && <BlockEnter onClick={()=> {handleClick('enter')} } styled={styled ? styled.blockEnter : ''}>
+          {enter &&  value && <BlockEnter onClick={()=> {handleClick('enter')} } styled={styled ? styled.blockEnter : ''}>
             <BlockEnterText styled={styled ? styled.blockEnterText : ''}>
               Enter
             </BlockEnterText>
@@ -64,36 +64,30 @@ export default ModuleSearchBlock
 //
 
 const Container = styled.div`
-position: relative;
-height: 100%;
+  position: relative;
+  height: 100%;
   ${({styled}) => styled}
 `;
 const BlockIconClear = styled.div`
-    display: flex;
-    width: 100%;
-    height: 100%;
-    background: #ffbcbc;
-    border-radius: 50%;
-    border: 1px solid #fff;
-    cursor: pointer;
+  border-radius: 50%;
+  transition: ease 0.4s;
+  cursor: pointer;
+  &:hover {
+    box-shadow: 0 0 0 1px #4E9FA8;
+  }
 
-    &:hover {
-      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-    }
-    & > svg {
-        margin: auto;
-    }
   ${({styled}) => styled}
 
 `;
 const BlockClear = styled.div`
     position: absolute;
-    top: 1px;
-    right: 59px;
-    width: 30px;
-    bottom: 1px;
-    padding: 9px;
-      ${({styled}) => styled}
+    right: 60px;
+    top: 50%;
+    transform: translate(0,-50%);
+    width: 14px;
+    height: 14px;
+    display: flex;
+    ${({styled}) => styled}
 `;
 
 const BlockEnter = styled.div`
@@ -106,11 +100,10 @@ const BlockEnter = styled.div`
   bottom: 0;
   display: flex;
   align-items: center;
-  border-left: 1px solid #3857ae;
   ${({styled}) => styled}
 `;
 const BlockEnterText = styled.div`
-    font-size: 10px;
+    font-size: 12px;
     margin-right: 5px;
     color: #fff;
   ${({styled}) => styled}
@@ -134,5 +127,8 @@ const BlockIconSearch = styled.div`
   left: 10px;
   top: 50%;
   transform: translate(0, -50%);
+  & > svg > path {
+    fill: ${({value}) => value ? '#fff' : ''}
+  }
   ${({styled}) => styled}
 `;

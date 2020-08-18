@@ -3,13 +3,14 @@ import {transparentize} from '../utils/transparentize';
 
 export const ModuleInput = styled.input`
   width: 100%;
-  height:  38px;
+  height: 100%;
   padding: 10px;
   margin: 0;
+  font-family: "Open-sans" , sans-serif;
   background: #fff;
   border: 1px solid  #000;
-  font-family: ProximaNova-Regular, sans-serif;
-  font-size: 100%;
+  font-size: 12px;
+  font-weight: 500;
   line-height: 1.15;
   color: #000;
   text-overflow: ellipsis;

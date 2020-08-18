@@ -6,6 +6,8 @@ import {ModuleInput} from "./Input";
 import ModuleSearchBlock from "./searchBlock";
 import ModuleActionButton from "./actionButton";
 import ModuleHorizontMenu from "./horizontMenu";
+import ModuleMenu from "./menu";
+import ModuleMainNavigationBar from "./mainNavigationBar";
 
 export const BreadCrumb = (props) => {
   const {list = [{title: 'Main', link:'/'}], seporator = '/', onClick, styled} = props
@@ -15,7 +17,7 @@ export const BreadCrumb = (props) => {
                            onClick={onClick}/>
 }
 export const SelectSearch = (props) => {
-    const { list = [], suggestionButton = false, other = null, search = false, multi = false, placeholder = 'Поиск', onClick, fill = 'rgba(0,0,0,0.7)', styled , displayValue = 'test', onClickClear } = props
+    const { list = [], suggestionButton = false, other = null, search = false, multi = false, placeholder = 'Поиск...', onClick, fill = 'rgba(0,0,0,0.7)', styled , displayValue = 'test', onClickClear } = props
   return <ModuleSelectSearch list={list}
                              styled={styled}
                              onClickClear={onClickClear ? onClickClear : null}
@@ -33,7 +35,7 @@ export const Input = (props) => {
   return <ModuleInput styled={styled}/>
 }
 export const SearchBlock = (props) => {
-  const { value = '', onChange, placeholder = 'Поиск', onFocus, onClick, closeIcon = false,
+  const { value = '', onChange, placeholder = 'Поиск...', onFocus, onClick, closeIcon = false,
     fill = '#000', icon = '', styled, onKeyPress, clear = true, enter = true } = props
   return <ModuleSearchBlock value={value}
                             onChange={onChange ? onChange : null}
@@ -58,9 +60,22 @@ export const ActionButton = (props) => {
 }
 
 export const HorizontMenu = (props) => {
-  const {onClick, styled, list, other} = props
+  const {onClick, styled = {}, list = [], other = '', activeId} = props
   return <ModuleHorizontMenu  onClick={onClick}
+                              activeId={activeId}
                               styled={styled}
                               list={list}
                               other={other}/>
+}
+export const Menu = (props) => {
+  const {onClick, styled = {}, list = [], other = '', activeId} = props
+  return <ModuleMenu  onClick={onClick}
+                      activeId={activeId}
+                      styled={styled}
+                      list={list}
+                      other={other}/>
+}
+export const MainNavigationBar = (props) => {
+  const {children} = props
+  return <ModuleMainNavigationBar children={children} />
 }

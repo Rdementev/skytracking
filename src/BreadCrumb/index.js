@@ -1,6 +1,7 @@
 import React, {Fragment, useEffect} from 'react'
 import styled from 'styled-components/macro'
 
+
 const ModuleBreadCrumb = (props) => {
   const {list, onClick, seporator, styled} = props
 
@@ -13,11 +14,24 @@ const ModuleBreadCrumb = (props) => {
     return (
       <Fragment>
         {list.map((item, i)=> {
-          if(i === list.length - 1) return  <LastUrl styled={styled && styled.lastItem ? styled.lastItem : ''} isLast={true}>{item.title}</LastUrl>
-          if(item.link){
+          if(i === list.length - 1){
+            return (
+              <LastUrlBlock styled={styled && styled.lastUrlBlock}>
+                <LastUrl styled={styled && styled.lastItem ? styled.lastItem : ''} isLast={true}>{item.title}</LastUrl>
+                <LastUrlIcon styled={styled && styled.lastUrlIcon}>
+                  {item.icon}
+                </LastUrlIcon>
+              </LastUrlBlock>
+
+            )
+          }
+          else if(item.link){
             return (
               <Fragment>
-                <Link styled={styled && styled.item ? styled.item : ''} onClick={(e)=>{onClick(item.link)}}>{item.title}</Link>
+                <LinkBlock styled={styled && styled.linkBlock}>
+                  <Link styled={styled && styled.item ? styled.item : ''} onClick={(e)=>{onClick(item.link)}}>{item.title}</Link>
+                  <LinkIcon styled={styled && styled.linkBlockIcon}>{item.icon}</LinkIcon>
+                </LinkBlock>
                 <Seporator styled={styled && styled.seporator ? styled.seporator : ''}>{seporator}</Seporator>
               </Fragment>
             )
@@ -42,7 +56,7 @@ const Container = styled.div`
     padding: ${({padding}) => padding ? padding : '13px 20px 13px 13px'} ;
     font-size: ${({fontSize}) => fontSize ? fontSize : '10px'} ;
     display: flex;
-    color:  #454573;
+     color: #134153;
     text-transform: uppercase;
     border: 1px solid #EFF1F4;
     background-color: #fff;
@@ -67,12 +81,38 @@ const Link = styled.div`
 `;
 const LastUrl = styled(Link)`
   cursor: ${({isLast}) => isLast ? 'default' : 'pointer'};
-  color: ${({isLast}) => isLast ? '#2A2A52' : '#2A2A52'};
   font-weight: ${({isLast}) => isLast ? 'bold' : 'regular'};
 
   &:hover {
       background:  ${({isLast}) => isLast ? 'transparent' : '#F5F5F5'} ;
     }
+
+  ${({styled}) => styled}
+`;
+
+const LinkBlock = styled.div`
+
+  ${({styled}) => styled}
+`;
+const LastUrlBlock = styled.div`
+  display: flex;
+  align-items: center;
+
+  ${({styled}) => styled}
+`;
+const LastUrlIcon = styled.div`
+  display: flex;
+  min-width: 20px;
+  min-height: 20px;
+  max-width: 20px;
+  max-height: 20px;
+  & > svg {
+    margin: auto;
+  }
+  ${({styled}) => styled}
+`;
+
+const LinkIcon = styled.div`
 
   ${({styled}) => styled}
 `;

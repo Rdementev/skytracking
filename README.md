@@ -5,8 +5,7 @@ import {BreadCrumb} from ....
 
 list = [{
   title: 'example',
-  link: '/example',
-  icon: <Component/>
+  link: '/example'
 }]
 
 seporator = '/'
@@ -18,10 +17,6 @@ styled = {
   item: {},
   seporator: {},
   lastItem:{},
-  lastUrlBlock: {},
-  lastUrlIcon: {},
-  linkBlock: {},
-  linkBlockIcon: {},
 }
 
 ______________________________________________________________________________________________________________________________________
@@ -65,7 +60,6 @@ styled= {
   blockIconInput: {},
   blockIconClear: {},
   itemBlock: {},
-  suggestionContainer,
 }
 
 ______________________________________________________________________________________________________________________________________
@@ -84,13 +78,11 @@ icon | default = null
 onKeyPress | при нажатие enter ( which 13)
 clear | default = true отображает кнопку отчистики внутри инпута
 enter | default = true отображает кнопку enter внутри инпута
-icon | default = null <Component/> икнока поиска
-closeIcon | default = null <Component/> иконка очистки
-suggestionButton | default = null <Component/> кнопка в списке при мультивыборе
+icon | default = null <Icon/> икнока поиска
+closeIcon | default = null <Icon/> иконка очистки
 
 styled = {
   container: {},
-  SuggestionButtonContainer :{} 
   blockIconSearch : {},
   input: {}
   blockClear : {},
@@ -114,22 +106,5 @@ icon | default = false <Icon/>
 styled = {
   button: {},
   blockIcon : {},
-}
-
-______________________________________________________________________________________________________________________________________
-
-6) HorizontMenu
-
-import {HorizontMenu} from ....
-
-onClick callback при клике на элемент
-list = [{id:1, title: 'Common', icon:<Cloud/>  }] - массив объектов 
-other параметр который вернется при клике на елемент из списка
-
-styled = {
-  BlockItem: {},
-  BlockIcon: {},
-  Title: {},
-  Container: {},
 }
 

@@ -9,7 +9,7 @@ const ModuleActionButton = (props) => {
           <StyledButton styled={styled && styled.button} onClick={()=>{onClick(action)}} >
             {title}
               <BlockIcon styled={styled && styled.blockIcon}>
-                {Icon ? Icon : <div>+</div>}
+                {Icon ? Icon : ''}
               </BlockIcon>
           </StyledButton>
     )
@@ -17,33 +17,71 @@ const ModuleActionButton = (props) => {
 
 export default ModuleActionButton
 //
-const StyledButton = styled.div`
-    padding: 2px 2px 2px 12px;
-    margin-right: 10px;
-    border-radius: 4px;
-    height: 100%;
-    white-space: nowrap;
-    display: flex;
-    align-items: center;
-    min-width: 180px;
-    justify-content: space-between;
-    transition: 0.4s ease;
-    &:hover {
 
-    }
-    ${({styled}) => styled}
-`;
 const BlockIcon = styled.div`
-    width: 28px;
-    height: 28px;
+    width: 22px;
+    background: #3C939C;
+    box-shadow: 0 4px 10px rgba(0,0,0, 0.1);
+    height: 22px;
     border-radius: 4px;
     display: flex;
     margin-left: 10px;
+    transition: ease 0.4s;
     & > svg {
       margin: auto;
+      transition: ease 0.4s;
     }
+    & > svg > g{
+      transition: ease 0.4s;
+      fill: #C3DDDF;
+    }
+    & > svg > path{
+      transition: ease 0.4s;
+      fill: #C3DDDF;
+    }
+
     & > div {
       margin: auto;
     }
      ${({styled}) => styled}
+`;
+
+const StyledButton = styled.div`
+    padding: 2px 2px 2px 10px;
+    margin-right: 5px;
+    border-radius: 4px;
+    height: 100%;
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0;
+    color: #ffffffb3;
+    background: #388D96;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: 0.4s ease;
+    cursor: pointer;
+    &:hover {
+      border-color: #5DB3BC;
+       color: #fff;
+       & > ${BlockIcon} {
+       & >svg > g{
+        fill: #fff;
+       }
+       & >svg > path{
+        fill: #fff;
+       }
+       }
+    }
+    &:active {
+      background: #226D75;
+      border-color: transparent;
+      & > ${BlockIcon} {
+      background: #114B51;
+      }
+
+    }
+    ${({styled}) => styled}
 `;

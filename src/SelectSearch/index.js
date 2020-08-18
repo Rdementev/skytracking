@@ -8,6 +8,7 @@ import Done from "./SearchIcon";
 const SelectSearch = (props) => {
   const {list, multi, placeholder, onClick, fill, styled, displayValue, onClickClear, other, search, suggestionButton} = props
   const [showList, setShowList] = useState(false)
+  const [itemIndex, setItemIndex] = useState(0)
   const [result, setResult] = useState(list)
   const [value, setValue] = useState('')
   const [selected, setSelected] = useState({})
@@ -68,8 +69,9 @@ const SelectSearch = (props) => {
   }
 
   const getSuggestionsSoloList = () => {
-   if (result.length < 1) return <ItemName styled={styled} style={{textAlign: 'center'}}>Данных нет</ItemName>
-    return result.map(item => {
+   if (result.length < 1) return <ItemName styled={styled} style={{textAlign: 'center', fontSize: '12px'}}>Данных нет</ItemName>
+    return result.map((item, i) => {
+      const sel = itemIndex === i
       if (item.type === 'group') {
         return (
           <Group styled={styled}>
@@ -80,7 +82,7 @@ const SelectSearch = (props) => {
               return (
                 <ItemBlock styled={styled}
                            onClick={() => {handleClickItem(elem)}}
-                           isActive={selected.id === elem.id ? true : false}>
+                           isActive={selected.id === elem.id }>
                   {item.icon && <BlockIconItem styled={styled}>
                     {item.icon}
                   </BlockIconItem>}
@@ -95,7 +97,9 @@ const SelectSearch = (props) => {
       }
       return (
         <ItemBlock styled={styled}
-                   isActive={selected.id === item.id ? true : false}
+                   sel={sel}
+                   onMouseEnter={(e)=>{setItemIndex(i)}}
+                   isActive={selected.id === item.id}
                    onClick={() => {handleClickItem(item)}}>
           {item.icon && <BlockIconItem styled={styled}>
             {item.icon}
@@ -108,12 +112,13 @@ const SelectSearch = (props) => {
     })
   }
 
+
+
+
+
   const getSuggestionsMultiList = () => {
     if (result.length < 1) return <ItemName styled={styled} style={{textAlign: 'center'}}>Данных нет</ItemName>
-    return
-
-
-    result.map(item => {
+    return result.map(item => {
       if (item.type === 'group') {
         return (
           <Group styled={styled}>
@@ -124,7 +129,7 @@ const SelectSearch = (props) => {
               return (
                 <ItemBlock styled={styled}
                            onClick={() => {handleClickItem(elem)}}
-                           isActive={selected.id === elem.id ? true : false}>
+                           isActive={selected.id === elem.id}>
                   {item.icon && <BlockIconItem styled={styled}>
                     {item.icon}
                   </BlockIconItem>}
@@ -139,7 +144,7 @@ const SelectSearch = (props) => {
       }
       return (
         <ItemBlock styled={styled}
-                   isActive={selected.id === item.id ? true : false}
+                   isActive={selected.id === item.id}
                    onClick={() => {handleClickItem(item)}}>
           {item.icon && <BlockIconItem styled={styled}>
             {item.icon}
@@ -158,7 +163,7 @@ const SelectSearch = (props) => {
           <ButtonSpan styled={styled}>
             {displayValue}
           </ButtonSpan>
-          <BlockIcon  styled={styled} fill={fill}  >
+          <BlockIcon  styled={styled}  >
             <IconArrow  />
           </BlockIcon>
         </ButtonSelect>
@@ -168,6 +173,7 @@ const SelectSearch = (props) => {
           <ModuleInput placeholder={placeholder}
                        styled={styled.input}
                        value={value}
+                       autoFocus={true}
                        onChange={(e) => {setValue(e.target.value)}}/>
 
           { value && onClickClear &&
@@ -182,15 +188,18 @@ const SelectSearch = (props) => {
                           fill={fill}
                           onClick={(e) => {handleClickOpen()}}
                           showList={showList}>
-            <IconArrow fill={fill} showList={showList} />
+            <IconArrow  showList={showList} />
           </BlockIconInput>
         </BlockInput>
-        <Suggestion ref={ListRef} styled={styled}>
-          {multi ? getSuggestionsMultiList : getSuggestionsSoloList()}
-          {multi && <SuggestionButtonContainer>
-            {suggestionButton}
-          </SuggestionButtonContainer>}
-        </Suggestion>
+        <SuggestionContainer styled={styled}>
+          <Suggestion ref={ListRef} styled={styled}>
+            {multi ? getSuggestionsMultiList : getSuggestionsSoloList()}
+            {multi && <SuggestionButtonContainer>
+              {suggestionButton}
+            </SuggestionButtonContainer>}
+          </Suggestion>
+        </SuggestionContainer>
+
       </List>
       }
 
@@ -202,20 +211,62 @@ export default SelectSearch
 const IconArrow = styled(Done)`
     width: 10px;
     height: 10px;
+
+
 `;
 const BlockInput = styled.div`
     position: relative;
+    height: 28px;
    ${({styled}) => styled && styled.blockInput ? styled.blockInput  : ''}
 `;
+const BlockIcon = styled.div`
+    display: flex;
+    transform: rotate(-90deg);
+    margin-left: auto;
+    cursor: pointer;
+    & > ${IconArrow} {
+      width: 6px;
+      height: 3px;
+
+    }
+
+    & > svg {
+      width: 7px;
+      height: 7px;
+      margin: auto;
+      transform: ${({showList}) => showList ? 'rotate(180deg)' : 'none'} ;
+    }
+
+    & > svg > path {
+    transition: ease 0.4s;
+    fill: ${({showList}) => showList ? '#fff' : '#ffffffb3'};
+    z-index: 1;
+    }
+    ${({styled}) => styled && styled.blockIcon ? styled.blockIcon : ''}
+
+`;
 const ButtonSelect = styled.div`
-    height: 32px;
+    height: 100%;
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0;
+    color: #ffffffb3;
     border-radius: 4px;
-    background: #2e4c9f;
-    border: 1px solid #3857ae;
+    padding: 5px 8px 5px 10px;
+    background: #388D96;
+    border: 1px solid transparent;
     align-items: center;
     display: flex;
-    color: #fff;
     cursor: pointer;
+    transition: ease 0.4s;
+    &:hover {
+      color: #fff;
+      border-color: #5DB3BC;
+    }
+    &:hover > ${BlockIcon} > svg > path {
+
+      fill: #fff;
+    }
 
     ${({styled}) => styled && styled.buttonSelect ? styled.buttonSelect  : ''}
 `;
@@ -229,40 +280,18 @@ const ButtonSpan = styled.span`
 `;
 const StyledContainer = styled.div`
     position: relative;
+    height: 100%;
     width: 100%;
     ${({styled}) => styled && styled.styledContainer ? styled.styledContainer  : ''}
 `;
-const BlockIcon = styled.div`
-    display: flex;
-    max-width: 30px;
-    margin-left: auto;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
 
-    & > ${IconArrow} {
-      width: 10px;
-      height: 10px;
-    }
-
-    & > svg {
-      margin: auto;
-      transform: ${({showList}) => showList ? 'rotate(180deg)' : 'none'} ;
-
-
-    }
-    & > svg > path {
-      fill: ${({fill}) => fill ? transparentize(1, fill) : transparentize(0.7, '#000')};
-      z-index: 1;
-    }
-    ${({styled}) => styled && styled.blockIcon ? styled.blockIcon : ''}
-
-`;
 const BlockIconInput = styled(BlockIcon)`
     position: absolute;
-    top: 0;
-    right: 0;
-    border-left: ${({value}) => value ? '1px solid #6786DA' : ''}  ;
+    top: 50%;
+    right: 10px;
+    transform: rotate(180deg) translate(0, 50%);
+    border-left: ${({value}) => value ? '1px solid transparent' : ''}  ;
+    border: #5DB3BC;
     transition: ease 0.3s;
 
     ${({styled}) => styled && styled.blockIconInput ? styled.blockIconInput  : ''}
@@ -283,11 +312,12 @@ const BlockIconItem = styled.div`
 `;
 const BlockClear = styled.div`
     position: absolute;
-    top: 1px;
-    right: 29px;
-    width: 30px;
+    top: 50%;
+    right: 22px;
+    transform: translate(0, -50%);
     bottom: 1px;
-    padding: 9px;
+    width: 14px;
+    height: 14px;
     display: flex;
 
       ${({styled}) => styled}
@@ -297,13 +327,18 @@ const BlockIconClear = styled.div`
     margin: auto;
     width: 100%;
     height: 100%;
-    background: #fff;
+    background: #226D75;
     border-radius: 50%;
     cursor: pointer;
+    border: 1px solid transparent;
     transition: ease 0.3s;
     &:hover {
-      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-      transform: translate(0, -1px);
+      box-shadow: 0 0 0 1px #5DB3BC;
+
+    }
+    &:active {
+      box-shadow: 0 0 0 1px #5DB3BC;
+      background: #114B51;
     }
     & > svg {
         margin: auto;
@@ -317,14 +352,53 @@ const List = styled.div`
     width: 100%;
     ${({styled}) => styled && styled.list ? styled.list  : ''}
 `;
+const SuggestionContainer = styled.div`
+    width: 100%;
+    top: 97%;
+
+    box-shadow: 0 4px 14px rgba(0,0,0,0.16);
+    background: #388D96;
+    z-index: 1;
+    border-radius: 0 0 4px 4px;
+    padding: 2px;
+    border: 1px solid;
+    border-color: #5DB3BC;
+    margin: 0;
+    color: rgba(255,255,255,0.7);
+
+    ${({styled}) => styled && styled.suggestionContainer ? styled.suggestionContainer  : ''}
+`;
 const Suggestion = styled.div`
     width: 100%;
-    top: 130%;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
-    border-radius: 5px;
-    position: absolute;
+    top: 97%;
+    overflow: auto;
+    padding: 3px;
+    background: #388D96;
     z-index: 1;
-    line-height: 13px;
+    margin: 0;
+    color: rgba(255,255,255,0.7);
+    max-height: 120px;
+
+    ::-webkit-scrollbar {
+     width: 4px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      border-radius: 3px;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      border-radius: 3px;
+      background: #f3f5fc80
+    }
+
+    ::-webkit-scrollbar-thumb:hover{
+      background: #F2F5FC;
+    }
+
+
     ${({styled}) => styled && styled.suggestion ? styled.suggestion : ''}
 `;
 const SuggestionButtonContainer = styled.div`
@@ -345,22 +419,23 @@ const ItemName = styled.li`
     cursor: pointer;
     text-overflow: ellipsis;
     overflow: hidden;
+    font-size: 12px;
+    width: 100%;
     ${({styled}) => styled && styled.itemName ? styled.itemName : ''};
 `;
 const ItemBlock = styled.div`
-    font-size: 12px;
+    border-radius: 2px;
     cursor: pointer;
     text-overflow: ellipsis;
-    padding: 10px 20px 10px 10px;
-    line-height: 13px;
     display: flex;
     align-items: center;
-
+    padding: 5px;
+    font-size: 10px;
     &:hover{
-      background-color: #4361B8;
+      background-color: #ffffff1a;
     }
     ${({styled}) => styled && styled.itemBlock ? styled.itemBlock : ''};
-    background-color: ${({isActive}) => isActive ? 'rgba(255,255,255,0.1)' : ''};
+    background-color: ${({isActive, sel}) => isActive || sel ? 'rgba(255,255,255,0.1)' : ''};
 
 `;
 
