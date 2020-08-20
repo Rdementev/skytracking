@@ -30,6 +30,40 @@ const ModuleSearchBlock = (props) => {
       onClick(value)
     }
 
+  const styleSearchBlockInput = {
+      backgroundColor: '#388D96',
+      borderRadius: '4px',
+      borderColor: 'transparent',
+      transition: 'ease 0.4s',
+      paddingLeft: '25px',
+      paddingRight: '75px',
+      color: '#fff',
+      '&:hover' : {
+        borderColor: '#5DB3BC',
+        color: '#fff',
+      },
+      '&:focus' : {
+        borderColor: '#5DB3BC',
+        color: '#fff',
+      },
+      '&::placeholder' : {
+        color: '#ffffffb3',
+      }
+  }
+
+  const getStyleInput = (styled) => {
+    if(styled && styled.input){
+      Object.keys(styleSearchBlockInput).map(item => {
+        Object.keys(styled.input).map(elem => {
+          if(item === elem){
+            styleSearchBlockInput[item]= styled.input[elem]
+          }
+        })
+      })
+    }
+    return styleSearchBlockInput
+  }
+
 
     return (
         <Container styled={styled ? styled.container : ''}>
@@ -38,7 +72,7 @@ const ModuleSearchBlock = (props) => {
           </BlockIconSearch>
           <ModuleInput
             onChange={handleChange}
-            styled={styled ? styled.input : ''}
+            styled={(getStyleInput(styleSearchBlockInput))}
             onKeyPress={handleKeyPress}
             onBlur={onFocus ? () => {onFocus(false)} : null}
             onFocus={onFocus ? () => {onFocus(true)} : null}
@@ -109,7 +143,6 @@ const BlockEnterText = styled.div`
   ${({styled}) => styled}
 `;
 const BlockEnterIcon = styled.div`
-
   width: 7px;
   height: 7px;
   & > svg {

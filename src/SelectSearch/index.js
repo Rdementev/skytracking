@@ -15,6 +15,43 @@ const SelectSearch = (props) => {
   const ListRef = useRef(null)
   const SearchRef = useRef(null)
 
+
+
+  const styleInput = {
+
+      borderRadius: '4px 4px 0 0',
+      backgroundColor: '#388D96',
+      borderColor: '#5DB3BC',
+      borderBottomColor: 'transparent',
+      color: '#fff',
+      "::placeholder" : {
+        color: 'rgba(255,255,255,0.7)'
+      },
+      '&:hover': {
+        borderColor: '#5DB3BC',
+        color: '#fff',
+        borderBottomColor: 'transparent',
+      },
+      '&:focus': {
+        borderColor: '#5DB3BC',
+        color: '#fff',
+        borderBottomColor: 'transparent',
+      }
+
+  }
+  const getStyleInput = (styled) => {
+    if(styled && styled.input){
+      Object.keys(styleInput).map(item => {
+        Object.keys(styled.input).map(elem => {
+          if(item === elem){
+            styleInput[item]= styled.input[elem]
+          }
+        })
+      })
+    }
+    return styleInput
+  }
+
   useEffect(() => {
     document.addEventListener('click', handleClickOutSide, false)
     return function () {
@@ -67,7 +104,6 @@ const SelectSearch = (props) => {
     setSelected([])
     onClickClear()
   }
-
   const getSuggestionsSoloList = () => {
    if (result.length < 1) return <ItemName styled={styled} style={{textAlign: 'center', fontSize: '12px'}}>Данных нет</ItemName>
     return result.map((item, i) => {
@@ -111,11 +147,6 @@ const SelectSearch = (props) => {
       )
     })
   }
-
-
-
-
-
   const getSuggestionsMultiList = () => {
     if (result.length < 1) return <ItemName styled={styled} style={{textAlign: 'center'}}>Данных нет</ItemName>
     return result.map(item => {
@@ -171,7 +202,7 @@ const SelectSearch = (props) => {
       <List styled={styled}>
         <BlockInput styled={styled}>
           <ModuleInput placeholder={placeholder}
-                       styled={styled.input}
+                       styled={getStyleInput(styled)}
                        value={value}
                        autoFocus={true}
                        onChange={(e) => {setValue(e.target.value)}}/>

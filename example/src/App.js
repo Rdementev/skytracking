@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {BreadCrumb, SelectSearch, SearchBlock, ActionButton, HorizontMenu, Menu, MainNavigationBar} from 'libar'
+import {BreadCrumb, SelectSearch, SearchBlock, ActionButton, HorizontMenu, Menu, MainNavigationBar} from '@rdementev/skytracking'
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import styled from 'styled-components/macro'
@@ -46,35 +46,28 @@ const App = (props) => {
         '4test 4test 4test 4test 4test 4test 4test 4test 4', value: 'en', id:4, icon: <Settings/>},
   ];
   const styleList = {
-    input: {
-      borderRadius: '4px 4px 0 0',
-      backgroundColor: '#388D96',
-      borderColor: '#5DB3BC',
-      borderBottomColor: 'transparent',
-      color: '#fff',
-      "::placeholder" : {
-        color: 'rgba(255,255,255,0.7)'
-      },
-      '&:hover': {
-        borderColor: '#5DB3BC',
-        color: '#fff',
-        borderBottomColor: 'transparent',
-      },
-      '&:focus': {
-        borderColor: '#5DB3BC',
-        color: '#fff',
-        borderBottomColor: 'transparent',
-      }
-    },
+    // input: {
+    //   borderRadius: '4px 4px 0 0',
+    //   backgroundColor: '#388D96',
+    //   borderColor: '#5DB3BC',
+    //   borderBottomColor: 'transparent',
+    //   color: '#fff',
+    //   "::placeholder" : {
+    //     color: 'rgba(255,255,255,0.7)'
+    //   },
+    //   '&:hover': {
+    //     borderColor: '#5DB3BC',
+    //     color: '#fff',
+    //     borderBottomColor: 'transparent',
+    //   },
+    //   '&:focus': {
+    //     borderColor: '#5DB3BC',
+    //     color: '#fff',
+    //     borderBottomColor: 'transparent',
+    //   }
+    // },
   }
-  const styleActionButton = {
-    button : {
 
-    },
-    blockIcon : {
-
-    },
-  }
   const styleSearchBlock = {
     input: {
       backgroundColor: '#388D96',
@@ -135,19 +128,18 @@ const App = (props) => {
     <Con>
       <MainNavigationBar>
         <BlockActionButton>
-          <ActionButton styled={styleActionButton}
-                        icon={<Cloud/>}
+          <ActionButton icon={<Cloud/>}
                         title={'Сохранить'}
                         onClick={handleClickCreate}/>
         </BlockActionButton>
         <BlockActionButton>
-          <ActionButton styled={styleActionButton}
+          <ActionButton
                         title={'Выполнить'}
                         icon={<Start/>}
                         onClick={handleClickDone}/>
         </BlockActionButton>
         <BlockActionButton>
-          <ActionButton styled={styleActionButton}
+          <ActionButton
                         title={'Настройка'}
                         icon={<Settings/>}
                         onClick={handleClickDelete}/>
